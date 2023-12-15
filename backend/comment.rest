@@ -1,0 +1,43 @@
+### COMMENT ON POST
+POST http://localhost:4201/comment
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "post_id":"b9189814-4ca7-487e-bda5-422f8c2ee014",
+    "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
+    "comment":"This is my firsts comment dan @diana",    
+    "created_at":"now"
+}
+
+### COMMEMT ON COMMENT
+POST http://localhost:4201/comment
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "post_id":"9629028b-b4b8-4a2f-beef-d424a0b9dcbe",
+    "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
+    "comment":"This is my first subcomment",  
+    "created_at":"now",
+    "comment_replied_to_id":"7370d940-3101-4cf1-bc5b-f373cf7e4931"
+}
+
+### EDIT COMMENT 
+PUT http://localhost:4201/comment
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "comment_id":"7370d940-3101-4cf1-bc5b-f373cf7e4931",    
+    "updated_comment":"This is my first edit comment"    
+}
+
+### DELETE COMMENT 
+DELETE http://localhost:4201/comment/70010881-689c-46da-9bb5-095df2296418
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+
+
+### GET COMMENTS OF A POST COMMENT 
+GET http://localhost:4201/comment/b9189814-4ca7-487e-bda5-422f8c2ee014
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA

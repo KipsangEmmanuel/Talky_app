@@ -1,0 +1,30 @@
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropzone:hover {
+  background-color: #f9f9f9;
+}
+
+.image-dropzone,
+.video-dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.image-dropzone:hover,
+.video-dropzone:hover {
+  background-color: #f9f9f9;
+}
+
+.video-preview {
+  width: 100%; /* Set the width to fit the container */
+}

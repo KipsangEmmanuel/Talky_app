@@ -1,0 +1,64 @@
+## CREATE POST
+
+POST http://localhost:4201/post/
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNjMxNDM1LCJleHAiOjE3MDI3MTc4MzV9.wvPlJ1HK28Ui6w7HdU7LBeFbif-b7JDTu-ce9Mo2IS8
+Content-Type: application/json
+
+{
+    "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
+    "caption":"This is my first Post",    
+    "created_at":"now"
+}
+
+### CREATE POST WITH IMAGE
+POST http://localhost:4201/post/
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "postImage":"https://c4.wallpaperflare.com/wallpaper/193/556/883/car-neon-chevrolet-corvette-race-cars-hd-wallpaper-preview.jpg",
+    "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
+    "caption":"This is my post with image",
+    "created_at":"now"    
+}
+
+
+### update a post 
+
+PUT http://localhost:4201/post/
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "UpdatedPostImage":["https://c4.wallpaperflare.com/wallpaper/193/556/883/car-neon-chevrolet-corvette-race-cars-hd-wallpaper-preview.jpg","https://w0.peakpx.com/wallpaper/135/1018/HD-wallpaper-car-sports-car-neon-backlight-asphalt.jpg"],
+    "updatedCaption":"This is my first edit of caption",
+    "post_id" : "863b5dcd-f2a7-4105-8ba1-9a96c8a2c396",
+     "updated_at" : "now"
+}
+
+### DELETE POST
+DELETE http://localhost:4201/post/7a4fbaa7-a22e-492c-9e22-1ef4921dad8d
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+
+
+### GETS ALL POSTS
+GET http://localhost:4201/post
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+
+### GETS ONE POST 
+GET http://localhost:4201/post/9629028b-b4b8-4a2f-beef-d424a0b9dcbe
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+
+### TOGGLE LIKE POST
+POST http://localhost:4201/post/toggleLikePost
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+Content-Type: application/json
+
+{
+    "post_id":"b9189814-4ca7-487e-bda5-422f8c2ee014",
+    "user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4"
+}
+
+### get Post Likes
+GET http://localhost:4201/post/like/b9189814-4ca7-487e-bda5-422f8c2ee014
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA

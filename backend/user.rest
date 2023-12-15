@@ -1,0 +1,69 @@
+####register user
+post http://localhost:4201/user/register
+Content-Type: application/json
+
+{
+    "user_name": "Daniel",
+    "email":"gamemy177@gmail.com",
+    "password": "@Santa2023",
+     "fullName": "Daniel Kasee"
+}
+
+#####get all users
+
+get http://localhost:4201/user
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNjMxNDM1LCJleHAiOjE3MDI3MTc4MzV9.wvPlJ1HK28Ui6w7HdU7LBeFbif-b7JDTu-ce9Mo2IS8
+
+#####get one user by id
+get http://localhost:4201/user/28e61f6e-e838-41c7-a155-380a84d78871
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhbGViLmJhcmFrYUB0aGVqaXR1LmNvbSIsImlkIjoiMjhlNjFmNmUtZTgzOC00MWM3LWExNTUtMzgwYTg0ZDc4ODcxIiwiaWF0IjoxNzAwOTk0NTc1LCJleHAiOjE3MDEwODA5NzV9.-LbWQugUV9a0G3Uk5OAZBN3HGbijJU-R9XxsxSImIoY
+
+####login user
+
+post http://localhost:4201/user/login
+Content-Type: application/json
+
+{    
+    "email":"gamemy177@gmail.com",
+    "password": "@Santa2023"
+}
+#####update user
+
+put http://localhost:4201/user
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhbGViLmJhcmFrYUB0aGVqaXR1LmNvbSIsImlkIjoiMjhlNjFmNmUtZTgzOC00MWM3LWExNTUtMzgwYTg0ZDc4ODcxIiwiaWF0IjoxNzAwOTk0NTc1LCJleHAiOjE3MDEwODA5NzV9.-LbWQugUV9a0G3Uk5OAZBN3HGbijJU-R9XxsxSImIoY
+Content-Type: application/json
+
+{
+    
+    "user_id":"28e61f6e-e838-41c7-a155-380a84d78871",
+    "user_name": "caleb",
+    "email":"baraka606@student.mmarau.ac.ke"
+}
+
+
+##### delete user by ID
+delete http://localhost:4201/user/28e61f6e-e838-41c7-a155-380a84d78871
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhbGViLmJhcmFrYUB0aGVqaXR1LmNvbSIsImlkIjoiMjhlNjFmNmUtZTgzOC00MWM3LWExNTUtMzgwYTg0ZDc4ODcxIiwiaWF0IjoxNzAwOTk0NTc1LCJleHAiOjE3MDEwODA5NzV9.-LbWQugUV9a0G3Uk5OAZBN3HGbijJU-R9XxsxSImIoY
+
+### check user details
+get http://localhost:4201/user/check_user_details
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjQ1OTMxOSwiZXhwIjoxNzAyNTQ1NzE5fQ.zZ2M8ID5DAEyB64EmshP2bsvFX5ND5rjXDtvefEmCyE
+
+#### forgot password
+post http://localhost:4201/user/forgot
+Content-Type: application/json
+
+{
+    "email":"caleb.baraka@thejitu.com"
+}
+
+##### reset password
+post http://localhost:4201/user/reset
+Content-Type: application/json
+
+{
+    "user_id" : "466782fb-fea3-4d1a-9980-9c150105962e",
+    "password" : "@Qwerty123"
+}
+
+

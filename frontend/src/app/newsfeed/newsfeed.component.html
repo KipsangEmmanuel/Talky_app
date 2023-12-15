@@ -1,0 +1,282 @@
+
+<div class="all">
+  <div class="rowfixed"></div>
+  <div class="left_row">
+    <div class="left_row_profile">
+      <img id="portada" src="../../assets/images/portada.jpg" />
+      <div class="left_row_profile">
+        <img id="profile_pic" src="../../assets/images/user.jpg" />
+        <span
+          >Jonh Hamstrong<br />
+          <p>150k followers / 50 follow</p></span
+        >
+      </div>
+    </div>
+    <div class="rowmenu">
+      <ul>
+        <li>
+          <a routerLink="/newsfeed"><i class="fa fa-globe"></i>Newsfeed</a>
+        </li>
+        <li>
+          <a routerLink="/profile"><i class="fa fa-user"></i>Profile</a>
+        </li>
+        <li>
+          <a routerLink="/friends"><i class="fa fa-users"></i>Friends</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right_row">
+    <div class="row">
+      <div class="publish">
+        <div class="row_title">
+          <span
+            ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Status</span
+          >
+        </div>
+        <form [formGroup]="postForm" (ngSubmit)="sharePost()">
+          <div class="publish_textarea">
+            <img
+              class="border-radius-image"
+              src="../../assets/images/user.jpg"
+              alt=""
+            />
+            <div style="display: flex; flex-direction: column">
+              <textarea
+                type="text"
+                placeholder="Whats up, John?"
+                style="resize: none"
+                formControlName="caption"
+              ></textarea>
+              <div
+                *ngIf="
+                  selectedPostType === 'image' || selectedPostType === 'video'
+                "
+              >
+                <ngx-dropzone (change)="onSelectPostImage($event)">
+                  <ngx-dropzone-label>Drop Post Image</ngx-dropzone-label>
+                  <ngx-dropzone-preview
+                    *ngFor="let f of postFiles"
+                    [removable]="true"
+                    (removed)="onRemovePostImage(f)"
+                  >
+                    <ngx-dropzone-label
+                      >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                    >
+                  </ngx-dropzone-preview>
+                </ngx-dropzone>
+
+                <!-- <div *ngIf="selectedFile">
+                  <img
+                    *ngIf="selectedPostType === 'image'"
+                    [src]="selectedFile | async"
+                    alt="Selected Image"
+                    class="img-fluid mt-3"
+                  />
+                  <video
+                    *ngIf="selectedPostType === 'video'"
+                    [src]="selectedFile | async"
+                    controls
+                    class="mt-3 video-preview"
+                  ></video>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="publish_icons">
+            <ul>
+              <li (click)="selectedPostType = 'text'">
+                <i class="fa fa-pencil pe-2"></i>
+              </li>
+              <li (click)="selectedPostType = 'image'">
+                <i class="fa fa-camera"></i>
+              </li>
+              <li (click)="selectedPostType = 'video'">
+                <i class="fa fa-video-camera"></i>
+              </li>
+            </ul>
+            <button type="submit">Publish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row border-radius">
+      <div class="feed">
+        <div class="feed_title">
+          <img src="../../assets/images/user-7.jpg" alt="" />
+          <span
+            ><b>Marina Valentine</b> shared a <a routerLink="photos">photo</a
+            ><br />
+            <p>March 2 at 6:05pm</p></span
+          >
+        </div>
+        <div class="feed_content">
+          <div class="feed_content_image">
+            <img src="../../assets/images/photo-1.jpg" alt="" />
+          </div>
+        </div>
+        <div class="feed_footer">
+          <ul class="feed_footer_left">
+            <li class="hover-orange selected-orange">
+              <i class="fa fa-heart"></i> 22k
+            </li>
+            <li>
+              <span><b>Jimmy, Andrea</b> and 47 more liked this</span>
+            </li>
+          </ul>
+          <ul class="feed_footer_right">
+            <li class="hover-orange selected-orange">
+              <i class="fa fa-share"></i> 7k
+            </li>
+            <li class="hover-orange">
+              <i class="fa fa-comments-o"></i> 860 comments
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feedcomments">
+        <ul>
+          <li>
+            <div class="feedcomments-user">
+              <img src="../../assets/images/user-6.jpg" />
+              <span
+                ><b>Mathilda Brinker</b><br />
+                <p>38 mins ago</p></span
+              >
+            </div>
+            <div class="feedcomments-comment">
+              <p>
+                Ratione voluptatem sequi en lod nesciunt. Neque porro quisquam
+                est, quinder dolorem ipsum quia dolor sit amet, consectetur
+                adipisci velit en lorem ipsum duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum.
+              </p>
+            </div>
+            <div class="feedcomments-foot">
+              <i class="fa fa-heart"></i><span>3 likes</span>
+              <p>
+                <a href=""><i class="fa fa-reply"></i> reply</a>
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="feedcomments-user">
+              <img src="../../assets/images/user.jpg" />
+              <span
+                ><b>Jonh Hamstrong</b><br />
+                <p>1 hour ago</p></span
+              >
+            </div>
+            <div class="feedcomments-comment">
+              <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium der doloremque laudantium.
+              </p>
+            </div>
+            <div class="feedcomments-foot">
+              <i class="fa fa-heart"></i><span>44 likes</span>
+              <p>
+                <a href=""><i class="fa fa-reply"></i> reply</a>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="suggestions_row">
+    <div class="row shadow">
+      <div class="row_title">
+        <span>Friend Suggestions</span>
+        <a routerLink="/friends">see more..</a>
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-7.jpg" alt="" />
+        <span><b>Francine Smith</b><br />8 Friends in Common</span>
+        <button>+</button>
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-2.jpg" alt="" />
+        <span><b>Hugh Wilson</b><br />6 Friends in Common</span>
+        <button>+</button>
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-6.jpg" alt="" />
+        <span><b>Karen Masters</b><br />6 Friends in Common</span>
+        <button>+</button>
+      </div>
+    </div>
+
+    <div class="row shadow">
+      <div class="row_title">
+        <span>Activity Feed</span>
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-7.jpg" alt="" />
+        <span
+          >Marina Polson commented on Jason Mark’s
+          <a class="selected-orange">photo</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-2.jpg" alt="" />
+        <span
+          >Jake Parker liked Nicholas Grissom’s
+          <a class="selected-orange">status update</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-3.jpg" alt="" />
+        <span
+          >Mary Jane Stark added 20 new photos to her
+          <a class="selected-orange">gallery album</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-6.jpg" alt="" />
+        <span
+          >Marina Polson commented on Jason Mark’s
+          <a class="selected-orange">photo</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user.jpg" alt="" />
+        <span
+          >Jake Parker liked Nicholas Grissom’s
+          <a class="selected-orange">status update</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-4.jpg" alt="" />
+        <span
+          >Mary Jane Stark added 20 new photos to her
+          <a class="selected-orange">gallery album</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-5.jpg" alt="" />
+        <span
+          >Marina Polson commented on Jason Mark’s
+          <a class="selected-orange">photo</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-2.jpg" alt="" />
+        <span
+          >Jake Parker liked Nicholas Grissom’s
+          <a class="selected-orange">status update</a>..</span
+        >
+      </div>
+      <div class="row_contain">
+        <img src="../../assets/images/user-7.jpg" alt="" />
+        <span
+          >Mary Jane Stark added 20 new photos to her
+          <a class="selected-orange">gallery album</a>..</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
