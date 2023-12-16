@@ -3,7 +3,7 @@ CREATE TABLE post_user_tag (
     post_id VARCHAR(100),
     user_id VARCHAR(100),
     sent INT Default 0,
-    created_at VARCHAR(20) NOT NULL
+     created_at DATETIME DEFAULT GETDATE() 
 
  FOREIGN KEY (post_id) REFERENCES posts(post_id),
  FOREIGN KEY (user_id) REFERENCES users(user_id)

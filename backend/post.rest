@@ -1,25 +1,24 @@
 ## CREATE POST
 
 POST http://localhost:4201/post/
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNjMxNDM1LCJleHAiOjE3MDI3MTc4MzV9.wvPlJ1HK28Ui6w7HdU7LBeFbif-b7JDTu-ce9Mo2IS8
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNzI1MjY4LCJleHAiOjE3MDI4MTE2Njh9.LdQl5cq1TOV3OuurqwDlwsicHXbXniqQXGccckrXqo4
 Content-Type: application/json
 
 {
     "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
-    "caption":"This is my first Post",    
-    "created_at":"now"
+    "caption":"This is my first Post"    
+   
 }
 
 ### CREATE POST WITH IMAGE
 POST http://localhost:4201/post/
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjU4NjM0NSwiZXhwIjoxNzAyNjcyNzQ1fQ.q2f4tcavzwXBuyMrmusb7dioZ2oM3PqhzIQNkdXJHLA
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNzI1MjY4LCJleHAiOjE3MDI4MTE2Njh9.LdQl5cq1TOV3OuurqwDlwsicHXbXniqQXGccckrXqo4
 Content-Type: application/json
 
 {
     "postImage":"https://c4.wallpaperflare.com/wallpaper/193/556/883/car-neon-chevrolet-corvette-race-cars-hd-wallpaper-preview.jpg",
     "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
-    "caption":"This is my post with image",
-    "created_at":"now"    
+    "caption":"This is my post with image"   
 }
 
 

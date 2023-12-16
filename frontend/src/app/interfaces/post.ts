@@ -1,3 +1,4 @@
+
 export interface Post {
   id: string;
   username: string;
@@ -18,4 +19,8 @@ export interface PostDetails {
   caption: string;
   postType: string;
   created_at: string;
+}
+
+export interface updatePost extends PostDetails{
+  post_id :string
 }

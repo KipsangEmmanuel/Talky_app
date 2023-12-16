@@ -1,8 +1,8 @@
 CREATE OR ALTER PROCEDURE getFollowers
-    @followed_user_id VARCHAR(500)
+   @p_followed_user_id VARCHAR(100)
 AS
 BEGIN
-    SELECT *
-    FROM follower
-    WHERE followed_user_id = @followed_user_id;
-END
+    SELECT follower_user_id
+    FROM followers
+    WHERE followed_user_id = @p_followed_user_id;
+END;

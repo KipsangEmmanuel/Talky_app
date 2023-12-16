@@ -1,23 +1,68 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Comment } from '../../interfaces/comment';
-import { PostDetails } from 'src/app/interfaces/post';
+import { PostDetails, updatePost } from 'src/app/interfaces/post';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  private baseUrl = 'http://localhost:4201/post';
+
+  // Helper function to get headers with token
+  private getHeadersWithToken(token: string): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      token: token,
+    });
+  }
+
   constructor(private http: HttpClient) {}
 
-  createPost(post: PostDetails) {
-    return this.http.post('http://localhost:4400/post/', post);
+  createPost(postData: PostDetails, token: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/`, postData, {
+      headers: this.getHeadersWithToken(token),
+    });
   }
 
-  createComment(comment: Comment) {
-    return this.http.post('http://localhost:4400/post/comment', comment);
+  updatePost(postData: updatePost, token: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/`, postData, {
+      headers: this.getHeadersWithToken(token),
+    });
   }
 
-  followingPosts(following_user_id: string) {
-    return this.http.get(`http://localhost:4400/post/${following_user_id}`);
+  deletePost(postId: string, token: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${postId}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+
+  getAllPosts(token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+
+  getOnePost(postId: string, token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${postId}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+
+  toggleLikePost(
+    postId: string,
+    userId: string,
+    token: string
+  ): Observable<any> {
+    const body = { post_id: postId, user_id: userId };
+    return this.http.post(`${this.baseUrl}/toggleLikePost`, body, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+
+  getPostLikes(postId: string, token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/like/${postId}`, {
+      headers: this.getHeadersWithToken(token),
+    });
   }
 }

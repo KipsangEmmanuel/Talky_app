@@ -7,3 +7,5 @@ CREATE TABLE comment_user_tag (
  FOREIGN KEY (comment_id) REFERENCES comment(comment_id),
  FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+
+drop table comment_user_tag

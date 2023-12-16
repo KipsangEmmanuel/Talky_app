@@ -6,3 +6,5 @@ CREATE TABLE likes (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
+
+drop table likes

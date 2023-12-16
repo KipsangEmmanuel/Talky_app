@@ -13,4 +13,4 @@ FOREIGN KEY (comment_replied_to_id) REFERENCES comment(comment_id)
 );
 
 
-select * from comment
+drop table comment

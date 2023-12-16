@@ -1,150 +1,120 @@
 import { Request, Response } from "express";
-import { execute, handleTVP, query } from "../services/dbconnect";
-import { v4 as uuidv4 } from "uuid";
+import { execute } from "../services/dbconnect";
 
-import { isEmpty } from "lodash";
-import { Post } from "../types/postInterface";
+const TOGGLE_FOLLOW_USER_PROCEDURE = "toggleFollowUser";
+const GET_FOLLOWERS_PROCEDURE = "getFollowers";
+const GET_FOLLOWINGS_PROCEDURE = "getFollowings";
+const FOLLOWING_POSTS_PROCEDURE = "followingPosts";
 
-export const toggleFollowUser = async (req: Request, res: Response) => {
-  console.log(req.body);
+const GET_FOLLOWERS_COUNT_PROCEDURE = "getFollowersCount";
+const GET_FOLLOWINGS_COUNT_PROCEDURE = "getFollowingsCount";
 
+export const followUser = async (
+  req: Request,
+  res: Response
+)=> {
   try {
-    let follower_id = uuidv4();
+      const { follower_user_id, followed_user_id } = req.body;
+      
+      if (!followed_user_id || !follower_user_id) {
+         return res.json({error : "no ids available!"})
+     }
 
-    let { following_user_id, followed_user_id } = req.body;
-    let created_at = new Date().toISOString();
-
-    const relationsexists = (
-      await execute("getfollowStatus", {
-        following_user_id,
-        followed_user_id,
-      })
-    ).recordset;
-
-    if (!isEmpty(relationsexists)) {
-      const result = await execute("unfollowUser", {
-        following_user_id,
-        followed_user_id,
-      });
-
-      // console.log(result);
-
-      if (result.rowsAffected[0] === 0) {
-        return res.status(404).json({
-          message: "Something went wrong, user not followed",
-        });
-      } else {
-        return res.status(200).json({
-          message: "User Unfollowed",
-        });
-      }
-    } else {
-      let result = await execute("followUser", {
-        follower_id,
-        following_user_id,
-        followed_user_id,
-        created_at,
-      });
-
-      if (result.rowsAffected[0] === 0) {
-        return res.status(404).json({
-          message: "Something went wrong, user not followed",
-        });
-      } else {
-        return res.status(200).json({
-          message: "User Followed",
-        });
-      }
-    }
-  } catch (error) {
-    console.log(error);
-
-    return res.json({
-      error,
+    const result = await execute(TOGGLE_FOLLOW_USER_PROCEDURE, {
+      p_follower_user_id: follower_user_id,
+      p_followed_user_id: followed_user_id,
     });
+      
+      console.log(result);
+      
+
+    res.status(200).json({ message: "Toggle follow success" });
+  } catch (error) {
+    console.error("Error toggling follow:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export const getFollowers = async (req: Request, res: Response) => {
+export const getFollowers = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    let { followed_user_id } = req.params;
+    const { followed_user_id } = req.params;
 
-    let followers = (
-      await execute("getFollowers", {
-        followed_user_id,
-      })
-    ).recordset;
-
-    return res.status(200).json({
-      followers: followers,
+    const followers = await execute(GET_FOLLOWERS_PROCEDURE, {
+      p_followed_user_id: followed_user_id,
     });
+
+    res.status(200).json({ followers });
   } catch (error) {
-    console.log(error);
-
-    return res.json({
-      error: error,
-    });
+    console.error("Error getting followers:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export const getFollowings = async (req: Request, res: Response) => {
+export const getFollowings = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    let { following_user_id } = req.params;
+    const { follower_user_id } = req.params;
 
-    let followings = (
-      await execute("getFollowings", {
-        following_user_id,
-      })
-    ).recordset;
-
-    return res.status(200).json({
-      followings: followings,
+    const followings = await execute(GET_FOLLOWINGS_PROCEDURE, {
+      p_follower_user_id: follower_user_id,
     });
+
+    res.status(200).json({ followings });
   } catch (error) {
-    console.log(error);
-
-    return res.json({
-      error: error,
-    });
+    console.error("Error getting followings:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-
-export const followingPosts = async (req: Request, res: Response) => {
+export const followingPosts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { following_user_id } = req.params;
-    const followers = (
-      await execute("getFollowings", {
-        following_user_id,
-      })
-    ).recordset;
 
-    const posts: any[] = [];
-
-    if (followers.length > 0) {
-      for (const follower of followers) {
-        const user_id = follower.following_user_id;
-        const result = await execute("getFollowerPost", {
-          user_id,
-        });
-
-        if (result.rowsAffected[0] !== 0) {
-          posts.push(...result.recordset);
-        }
-      }
-
-      return res.status(200).json({
-        posts,
-      });
-    } else {
-      return res.status(200).json({
-        posts: [],
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.json({
-      error: error,
+    const posts = await execute(FOLLOWING_POSTS_PROCEDURE, {
+      p_following_user_id: following_user_id,
     });
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    console.error("Error getting following posts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getFollowersCount = async (req: Request, res: Response) => {
+  try {
+    const { user_id } = req.params;
+
+    const result = await execute(GET_FOLLOWERS_COUNT_PROCEDURE, {
+      p_user_id: user_id,
+    });
+
+    res.status(200).json({ followers_count: result });
+  } catch (error) {
+    console.error("Error getting followers count:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getFollowingsCount = async (req: Request, res: Response) => {
+  try {
+    const { user_id } = req.params;
+
+    const result = await execute(GET_FOLLOWINGS_COUNT_PROCEDURE, {
+      p_user_id: user_id,
+    });
+
+    res.status(200).json({ result });
+  } catch (error) {
+    console.error("Error getting followings count:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

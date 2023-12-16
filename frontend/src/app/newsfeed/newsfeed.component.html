@@ -1,4 +1,3 @@
-
 <div class="all">
   <div class="rowfixed"></div>
   <div class="left_row">
@@ -66,21 +65,6 @@
                     >
                   </ngx-dropzone-preview>
                 </ngx-dropzone>
-
-                <!-- <div *ngIf="selectedFile">
-                  <img
-                    *ngIf="selectedPostType === 'image'"
-                    [src]="selectedFile | async"
-                    alt="Selected Image"
-                    class="img-fluid mt-3"
-                  />
-                  <video
-                    *ngIf="selectedPostType === 'video'"
-                    [src]="selectedFile | async"
-                    controls
-                    class="mt-3 video-preview"
-                  ></video>
-                </div> -->
               </div>
             </div>
           </div>
@@ -101,19 +85,21 @@
         </form>
       </div>
     </div>
-    <div class="row border-radius">
+    <div class="row border-radius" *ngFor="let post of posts">
       <div class="feed">
         <div class="feed_title">
-          <img src="../../assets/images/user-7.jpg" alt="" />
+          <img src="{{ post.profileImage }}" alt="" />
           <span
-            ><b>Marina Valentine</b> shared a <a routerLink="photos">photo</a
+            ><b>{{ post.fullName }}</b> shared a <a routerLink="photos">Post</a
             ><br />
-            <p>March 2 at 6:05pm</p></span
+            <p>{{ post.created_at | date }}</p></span
           >
         </div>
         <div class="feed_content">
           <div class="feed_content_image">
-            <img src="../../assets/images/photo-1.jpg" alt="" />
+            <p>{{ post.caption }}</p>
+
+            <img src="{{ post.postImage }}" alt="" />
           </div>
         </div>
         <div class="feed_footer">

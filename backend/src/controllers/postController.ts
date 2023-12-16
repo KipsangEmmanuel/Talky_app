@@ -7,9 +7,9 @@ import { Post } from "../types/postInterface";
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
-    let { postImage, created_by_user_id, caption, created_at } = req.body;
+    let { postImage, created_by_user_id, caption } = req.body;
 
     let { error } = createPostSchema.validate(req.body);
 
@@ -24,7 +24,6 @@ export const createPost = async (req: Request, res: Response) => {
       created_by_user_id,
       caption,
       postImage,
-      created_at,
     });
 
     if (result.rowsAffected[0] === 0) {
@@ -52,7 +51,6 @@ export const createPost = async (req: Request, res: Response) => {
               post_user_tag_id,
               post_id,
               user_id,
-              created_at,
             });
 
             if (result.rowsAffected[0] === 0) {
@@ -195,9 +193,6 @@ export const toggleLikePost = async (req: Request, res: Response) => {
     let created_at = new Date().toISOString();
     const likeexists = (await execute("getlike", { user_id, post_id }))
       .recordset;
-    
-   
-    
 
     if (!isEmpty(likeexists)) {
       let result = await execute("unLikePost", {
