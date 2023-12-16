@@ -7,7 +7,7 @@ Content-Type: application/json
     "post_id":"b9189814-4ca7-487e-bda5-422f8c2ee014",
     "created_by_user_id":"bd15993b-f1d5-4a44-8d5d-7d9f75d5d3a4",
     "comment":"This is my firsts comment dan @diana",    
-    "created_at":"now"
+    
 }
 
 ### COMMEMT ON COMMENT

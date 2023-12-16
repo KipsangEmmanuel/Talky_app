@@ -55,19 +55,13 @@ export class LoginComponent {
           this.loginService
             .checkUserDetails(response.token)
             .subscribe((data) => {
-              console.log(data);
+              // console.log(data);
 
               if ('info' in data) {
-                // if (data.info.isAdmin === true) {
-                //   localStorage.setItem('user_name', data.info.user_name!);
-                //   localStorage.setItem('user_id', data.info.user_id);
-                //   localStorage.setItem('isAdmin', 'true');
-                //   this.router.navigate(['/admin']);
-                // } else if (data.info.isAdmin === false) {
-
-                  // localStorage.setItem('isAdmin', 'false');
+               
                   localStorage.setItem('user_name', data.info.user_name!);
-                  localStorage.setItem('user_id', data.info.user_id);
+                localStorage.setItem('user_id', data.info.user_id);
+                localStorage.setItem('profilePic', data.info.profileImage);
                   this.router.navigate(['/newsfeed']);
                 // }
               }

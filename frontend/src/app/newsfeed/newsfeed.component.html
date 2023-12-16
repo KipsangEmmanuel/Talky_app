@@ -4,9 +4,9 @@
     <div class="left_row_profile">
       <img id="portada" src="../../assets/images/portada.jpg" />
       <div class="left_row_profile">
-        <img id="profile_pic" src="../../assets/images/user.jpg" />
+        <img id="profile_pic" src={{profilePic}} />
         <span
-          >Jonh Hamstrong<br />
+          >{{userName}}<br />
           <p>150k followers / 50 follow</p></span
         >
       </div>
@@ -112,57 +112,55 @@
             </li>
           </ul>
           <ul class="feed_footer_right">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-share"></i> 7k
-            </li>
-            <li class="hover-orange">
+            <li
+              class="hover-orange"
+              (click)="toggleComments(post)"
+              (click)="fetchComments(post.post_id)"
+            >
               <i class="fa fa-comments-o"></i> 860 comments
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="feedcomments">
+      <div class="feedcomments" *ngIf="post.showComments">
+        <div class="row">
+          <form
+            [formGroup]="commentForm"
+            (ngSubmit)="createComment(post.post_id)"
+          >
+            <div class="comment_textarea">
+              <img class="border-radius-image" src="{{ profilePic }}" alt="" />
+              <div>
+                <textarea
+                  type="text"
+                  placeholder="create a comment"
+                  style="resize: none"
+                  formControlName="comment"
+                ></textarea>
+              </div>
+              <div class="comment_icons">
+                <button type="submit">Post comment</button>
+              </div>
+            </div>
+          </form>
+        </div>
         <ul>
-          <li>
+          <li *ngFor="let comment of comments">
             <div class="feedcomments-user">
-              <img src="../../assets/images/user-6.jpg" />
+              <img src={{comment.comment_user_profile_image}} />
               <span
-                ><b>Mathilda Brinker</b><br />
-                <p>38 mins ago</p></span
+                ><b>{{ comment.post_user_name }}</b
+                ><br />
+                <p>{{ comment.created_at | date }}</p></span
               >
             </div>
             <div class="feedcomments-comment">
               <p>
-                Ratione voluptatem sequi en lod nesciunt. Neque porro quisquam
-                est, quinder dolorem ipsum quia dolor sit amet, consectetur
-                adipisci velit en lorem ipsum duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum.
+                {{ comment.comment }}
               </p>
             </div>
             <div class="feedcomments-foot">
-              <i class="fa fa-heart"></i><span>3 likes</span>
-              <p>
-                <a href=""><i class="fa fa-reply"></i> reply</a>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="feedcomments-user">
-              <img src="../../assets/images/user.jpg" />
-              <span
-                ><b>Jonh Hamstrong</b><br />
-                <p>1 hour ago</p></span
-              >
-            </div>
-            <div class="feedcomments-comment">
-              <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium der doloremque laudantium.
-              </p>
-            </div>
-            <div class="feedcomments-foot">
-              <i class="fa fa-heart"></i><span>44 likes</span>
               <p>
                 <a href=""><i class="fa fa-reply"></i> reply</a>
               </p>

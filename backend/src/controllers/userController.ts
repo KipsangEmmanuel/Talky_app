@@ -83,7 +83,7 @@ export const registerUser = async (req: Request, res: Response) => {
       email,
       password: newPassword,
       profileImage:
-        "https://th.bing.com/th/id/R.eb6bc833d264d2e9f695d736836bb564?rik=g0KjEGcDgo30Hw&riu=http%3a%2f%2fgetdrawings.com%2ffree-icon%2fgeneric-avatar-icon-51.png&ehk=i3OIOsf6xtx%2bqaCLmwGi7hN4eDntLu%2f%2b9WxFbSVRYRo%3d&risl=&pid=ImgRaw&r=0",
+        "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1434&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       fullName,
     };
 
@@ -134,7 +134,7 @@ export const loginUser = async (req: Request, res: Response) => {
         user.user_id,
         user.user_name,
         user.fullName,
-        user.isAdmin
+        user.profileImage
       );
       return res.status(200).json({
         message: "Logged in successfully",

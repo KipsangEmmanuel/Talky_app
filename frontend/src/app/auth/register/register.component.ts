@@ -53,7 +53,7 @@ export class RegisterComponent {
         .registerUser(userDetails)
         .subscribe((response) => {
           // Handle the response as needed
-          // console.log(response);
+          console.log(response);
 
           if (response.message) {
             Swal.fire({

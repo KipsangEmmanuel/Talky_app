@@ -11,14 +11,14 @@ export const generateToken = (
   user_id: string,
   user_name: string,
   fullName: string,
-  isAdmin: boolean
+  profileImage :string
 ): string => {
   return jwt.sign(
     {
       user_name,
       email,
       user_id,
-      isAdmin,
+      profileImage,
       fullName,
     },
     secretKey,

@@ -2,20 +2,14 @@ import { Request, Response } from "express";
 import { execute, handleTVP, query } from "../services/dbconnect";
 import { v4 as uuidv4 } from "uuid";
 import { isEmpty } from "lodash";
-import { createPostSchema } from "../validators/postValidator";
-import { Post } from "../types/postInterface";
+
 
 export const createComment = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
 
-    let {
-      created_by_user_id,
-      post_id,
-      comment,
-      comment_replied_to_id,
-      created_at,
-    } = req.body;
+    let { created_by_user_id, post_id, comment, comment_replied_to_id } =
+      req.body;
 
     let comment_id = uuidv4();
 
@@ -25,7 +19,6 @@ export const createComment = async (req: Request, res: Response) => {
       post_id,
       comment,
       comment_replied_to_id,
-      created_at,
     });
 
     if (result.rowsAffected[0] === 0) {
@@ -38,9 +31,8 @@ export const createComment = async (req: Request, res: Response) => {
 
         console.log("username_tagged is ", user_name);
 
-        const userExists = (
-          await execute("getUserByUsername", { user_name })
-        ).recordset;
+        const userExists = (await execute("getUserByUsername", { user_name }))
+          .recordset;
 
         if (!isEmpty(userExists)) {
           const user_id = userExists[0].user_id;
@@ -50,7 +42,6 @@ export const createComment = async (req: Request, res: Response) => {
             post_user_tag_id,
             post_id,
             user_id,
-            created_at,
           });
 
           if (result.rowsAffected[0] === 0) {
@@ -90,8 +81,7 @@ export const editComment = async (req: Request, res: Response) => {
     // Perform a database update to edit the comment
     let result = await execute("editComment", {
       comment_id,
-      updated_comment
-      
+      updated_comment,
     });
 
     if (result.rowsAffected[0] === 0) {

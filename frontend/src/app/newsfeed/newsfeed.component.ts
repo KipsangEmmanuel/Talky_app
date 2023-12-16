@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { CloudinaryService } from '../services/cloudinary/cloudinary.service';
 import { PostDetails } from '../interfaces/post';
 import { PostService } from '../services/post/post.service';
+import { CommentService } from '../services/comments/comment.service';
+import { Comment } from '../interfaces/comment';
 
 @Component({
   selector: 'app-newsfeed',
@@ -15,17 +17,25 @@ export class NewsfeedComponent implements OnInit {
   selectedFile: Observable<string | ArrayBuffer | null> | null = null;
   postFiles: any[] = [];
   postForm!: FormGroup;
+  commentForm!: FormGroup;
   posts: any[] = [];
+  comments: any[] = [];
   token: string | null = localStorage.getItem('token');
-
-  constructor(
+  profilePic: string | null = localStorage.getItem('profilePic');
+  userName: string | null = localStorage.getItem("user_name")
+  
+  constructor (
     private formBuilder: FormBuilder,
     private upload: CloudinaryService,
-    private postService: PostService
+    private postService: PostService,
+    private commentService: CommentService
   ) {
     this.postForm = this.formBuilder.group({
       postImage: [],
       caption: '',
+    });
+    this.commentForm = this.formBuilder.group({
+      comment: '',
     });
   }
   ngOnInit() {
@@ -41,13 +51,16 @@ export class NewsfeedComponent implements OnInit {
     this.postFiles.splice(this.postFiles.indexOf(event), 1);
   }
 
+  toggleComments(post: any) {
+    post.showComments = !post.showComments;
+    // console.log(post);
+  }
+
   sharePost() {
     // Your logic to share the post
-    console.log(this.postForm.value);
+    // console.log(this.postForm.value);
 
     if (this.postForm.valid) {
-      const imageUrls: string[] = [];
-
       // Upload all images
 
       const data = new FormData();
@@ -84,6 +97,7 @@ export class NewsfeedComponent implements OnInit {
           (response) => {
             console.log(response);
 
+            this.fetchPosts();
             this.postForm.reset();
             this.postFiles = []; // Clear the array of uploaded files
           },
@@ -106,12 +120,65 @@ export class NewsfeedComponent implements OnInit {
 
     try {
       this.postService.getAllPosts(this.token).subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         this.posts = res;
       });
-
     } catch (error) {
       console.log(error);
     }
   }
+
+  fetchComments(post_id: string) {
+    if (!this.token) {
+      console.error('Token not found.');
+      return;
+    }
+
+    try {
+      this.commentService
+        .getPostComments(post_id, this.token)
+        .subscribe((res) => {
+          console.log(res);
+          this.comments = res;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  createComment = (post_id: string) => {
+    try {
+      const user_id = localStorage.getItem('user_id');
+
+      if (this.commentForm.valid) {
+        let details: Comment = this.commentForm.value;
+
+        if (!this.token) {
+          console.log('there is no token');
+          return;
+        }
+
+        details.post_id = post_id;
+
+        if (user_id !== null) {
+          details.created_by_user_id = user_id;
+        } else {
+          console.log('There is no token or user_id');
+          return;
+        }
+
+        // console.log(details);
+
+        this.commentService
+          .createComment(details, this.token)
+          .subscribe((res) => {
+            console.log(res);
+            this.commentForm.reset();
+            this.fetchComments(post_id);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
