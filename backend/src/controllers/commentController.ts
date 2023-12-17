@@ -3,7 +3,6 @@ import { execute, handleTVP, query } from "../services/dbconnect";
 import { v4 as uuidv4 } from "uuid";
 import { isEmpty } from "lodash";
 
-
 export const createComment = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
@@ -78,11 +77,15 @@ export const editComment = async (req: Request, res: Response) => {
       });
     }
 
-    // Perform a database update to edit the comment
-    let result = await execute("editComment", {
+    const params = {
       comment_id,
       updated_comment,
-    });
+    };
+
+    // Perform a database update to edit the comment
+    let result = await execute("editComment", params);
+
+    console.log(result);
 
     if (result.rowsAffected[0] === 0) {
       return res.status(404).json({

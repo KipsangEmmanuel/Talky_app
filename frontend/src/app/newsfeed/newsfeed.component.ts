@@ -42,7 +42,7 @@ export class NewsfeedComponent implements OnInit {
       comment: '',
     });
     this.editCommentForm = this.formBuilder.group({
-      updatedComment: '',
+      updated_comment: '',
     });
   }
   ngOnInit() {
@@ -149,7 +149,7 @@ export class NewsfeedComponent implements OnInit {
       this.commentService
         .getPostComments(post_id, this.token)
         .subscribe((res) => {
-          // console.log(res);
+          console.log(res);
           this.comments = res;
         });
     } catch (error) {
@@ -248,7 +248,7 @@ export class NewsfeedComponent implements OnInit {
   editComment = (comment_id: string, post_id: string) => {
     try {
       if (this.editCommentForm.valid) {
-        let details: editComment = this.commentForm.value;
+        let details: editComment = this.editCommentForm.value;
 
         if (!this.token) {
           console.log('there is no token');
@@ -257,18 +257,31 @@ export class NewsfeedComponent implements OnInit {
 
         details.comment_id = comment_id;
 
-        // console.log(details);
+        console.log(details);
 
         this.commentService
           .editComment(details, this.token)
           .subscribe((res) => {
+            if (res.message) {
+              Swal.fire({
+                icon: 'success',
+                title: 'comment edited successfully!',
+                text: `${res.message}`,
+              });
+            }
+            this.showEditCommentForm = false;
             // console.log(res);
-            this.commentForm.reset();
+            this.editCommentForm.reset();
             this.fetchComments(post_id);
           });
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong!',
+        icon: 'error',
+      });
     }
   };
 
@@ -282,19 +295,19 @@ export class NewsfeedComponent implements OnInit {
       function getCommentById(
         commentId: string,
         comments: any[]
-      ): any | undefined{
+      ): Comment | undefined {
         return comments.find((comment) => comment.comment_id === commentId);
       }
 
       const desiredComment = getCommentById(comment_id, this.comments);
 
-      if (desiredComment) {
-        console.log('Found comment:', desiredComment);
-      } else {
-        console.log('Comment not found.');
-      }
+      // if (desiredComment) {
+      //   console.log('Found comment:', desiredComment);
+      // } else {
+      //   console.log('Comment not found.');
+      // }
       this.editCommentForm.patchValue({
-        updatedComment: desiredComment!.comment,
+        updated_comment: desiredComment!.comment,
 
         // console.log(this.editProductForm.value);
       });
