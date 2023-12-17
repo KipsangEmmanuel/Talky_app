@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+
+  profilePic: string | null = localStorage.getItem('profilePic')
+  
+  user_name : string|null = localStorage.getItem('user_name')
   constructor (private router: Router) { }
   
   logoutUser = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('user_id');
+    localStorage.clear();
     this.router.navigate(['/login']);
     
     // console.log(localStorage.getItem('token'));

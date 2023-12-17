@@ -975,6 +975,8 @@ body {
   width: 90%;
   margin: 10px auto;
   align-items: center;
+  display: flex;
+  justify-content: flex-end;
 }
 .feedcomments-foot i {
   font-size: 14px;

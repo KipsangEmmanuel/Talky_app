@@ -5,7 +5,8 @@ import { CloudinaryService } from '../services/cloudinary/cloudinary.service';
 import { PostDetails } from '../interfaces/post';
 import { PostService } from '../services/post/post.service';
 import { CommentService } from '../services/comments/comment.service';
-import { Comment } from '../interfaces/comment';
+import { Comment, editComment } from '../interfaces/comment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-newsfeed',
@@ -22,9 +23,12 @@ export class NewsfeedComponent implements OnInit {
   comments: any[] = [];
   token: string | null = localStorage.getItem('token');
   profilePic: string | null = localStorage.getItem('profilePic');
-  userName: string | null = localStorage.getItem("user_name")
-  
-  constructor (
+  userName: string | null = localStorage.getItem('user_name');
+
+  showEditCommentForm = false;
+  editCommentForm!: FormGroup;
+
+  constructor(
     private formBuilder: FormBuilder,
     private upload: CloudinaryService,
     private postService: PostService,
@@ -36,6 +40,9 @@ export class NewsfeedComponent implements OnInit {
     });
     this.commentForm = this.formBuilder.group({
       comment: '',
+    });
+    this.editCommentForm = this.formBuilder.group({
+      updatedComment: '',
     });
   }
   ngOnInit() {
@@ -54,6 +61,10 @@ export class NewsfeedComponent implements OnInit {
   toggleComments(post: any) {
     post.showComments = !post.showComments;
     // console.log(post);
+  }
+
+  toggleEditCommentForm(): void {
+    this.showEditCommentForm = !this.showEditCommentForm;
   }
 
   sharePost() {
@@ -138,7 +149,7 @@ export class NewsfeedComponent implements OnInit {
       this.commentService
         .getPostComments(post_id, this.token)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.comments = res;
         });
     } catch (error) {
@@ -172,11 +183,121 @@ export class NewsfeedComponent implements OnInit {
         this.commentService
           .createComment(details, this.token)
           .subscribe((res) => {
-            console.log(res);
+            // console.log(res);
             this.commentForm.reset();
             this.fetchComments(post_id);
           });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  deleteComment = async (comment_id: string, comment: string) => {
+    try {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton:
+            'btn btn-success text-white p-2 rounded m-2 cursor-pointer ',
+          cancelButton:
+            'btn btn-danger text-white p-2 rounded m-2  cursor-pointer ',
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: `Delete ${comment}! <br> Are you sure?`,
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it !',
+          cancelButtonText: 'No, cancel !  ',
+          reverseButtons: true,
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            if (!this.token) {
+              console.error('Token not found.');
+              return;
+            }
+            this.commentService
+              .deleteComment(comment_id, this.token)
+              .subscribe((res) => {
+                // console.log(res);
+              });
+            this.fetchPosts();
+
+            swalWithBootstrapButtons.fire({
+              title: 'Deleted!',
+              text: `${comment} has been deleted.`,
+              icon: 'success',
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+              title: 'Cancelled',
+              text: `${comment} is safe :)`,
+              icon: 'error',
+            });
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  editComment = (comment_id: string, post_id: string) => {
+    try {
+      if (this.editCommentForm.valid) {
+        let details: editComment = this.commentForm.value;
+
+        if (!this.token) {
+          console.log('there is no token');
+          return;
+        }
+
+        details.comment_id = comment_id;
+
+        // console.log(details);
+
+        this.commentService
+          .editComment(details, this.token)
+          .subscribe((res) => {
+            // console.log(res);
+            this.commentForm.reset();
+            this.fetchComments(post_id);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchSingleComment = (comment_id: string) => {
+    try {
+      if (!this.token) {
+        console.error('Token not found.');
+        return;
+      }
+
+      function getCommentById(
+        commentId: string,
+        comments: any[]
+      ): any | undefined{
+        return comments.find((comment) => comment.comment_id === commentId);
+      }
+
+      const desiredComment = getCommentById(comment_id, this.comments);
+
+      if (desiredComment) {
+        console.log('Found comment:', desiredComment);
+      } else {
+        console.log('Comment not found.');
+      }
+      this.editCommentForm.patchValue({
+        updatedComment: desiredComment!.comment,
+
+        // console.log(this.editProductForm.value);
+      });
     } catch (error) {
       console.log(error);
     }

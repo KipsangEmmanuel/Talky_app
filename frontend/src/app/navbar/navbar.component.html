@@ -11,7 +11,7 @@
     <img
       src="https://www.shutterstock.com/image-vector/lets-talk-sign-banner-business-260nw-1942604878.jpg"
       class="logo rounded"
-      style="height: 2rem"
+      style="height: 2rem; border-radius:1rem"
       alt=""
     />
   </div>
@@ -33,93 +33,15 @@
     </ul>
   </div>
   <div class="navbar_user" id="profilemodal" style="cursor: pointer">
-    <img src="../../assets/images/user.jpg" alt="" />
+    <img src={{profilePic}} alt="" />
     <span id="navbar_user_top"
-      >Jonh Hamstrong<br />
+      >{{user_name}}<br />
       <p>User</p></span
     ><i class="fa fa-angle-down"></i>
   </div>
 </div>
 
-<!-- Friends Modal -->
-<!-- Modal Messages -->
-<div class="modal modal-comments">
-  <div class="modal-icon-select">
-    <i class="fa fa-sort-asc" aria-hidden="true"></i>
-  </div>
-  
-  <div class="modal-content">
-    <ul>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-7.jpg" alt="" />
-          <span
-            ><b>Diana Jameson</b><br />Hi James! It’s Diana, I just wanted to
-            let you know that we have to reschedule...
-            <p>4 hours ago</p></span
-          >
-        </a>
-      </li>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-6.jpg" alt="" />
-          <span
-            ><b>Elaine Dreyfuss</b><br />We’ll have to check that at the office
-            and see if the client is on board with...
-            <p>Yesterday at 9:56pm</p></span
-          >
-        </a>
-      </li>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-3.jpg" alt="" />
-          <span
-            ><b>Jake Parker</b><br />Great, I’ll see you tomorrow!.
-            <p>4 hours ago</p></span
-          >
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-<!-- Modal Friends -->
-<div class="modal modal-friends">
-  <div class="modal-icon-select">
-    <i class="fa fa-sort-asc" aria-hidden="true"></i>
-  </div>
-  <div class="modal-title">
-    <span>FRIEND REQUESTS</span>
-    <a routerLink="/friends"><i class="fa fa-ellipsis-h"></i></a>
-  </div>
-  <div class="modal-content">
-    <ul>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-2.jpg" alt="" />
-          <span><b>Tony Stevens</b><br />4 Friends in Common</span>
-          <button class="modal-content-accept">Accept</button
-          ><button class="modal-content-decline">Decline</button>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-6.jpg" alt="" />
-          <span><b>Tamara Romanoff</b><br />2 Friends in Common</span>
-          <button class="modal-content-accept">Accept</button
-          ><button class="modal-content-decline">Decline</button>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/profile">
-          <img src="../../assets/images/user-4.jpg" alt="" />
-          <span><b>Nicholas Grissom</b><br />1 Friend in Common</span>
-          <button class="modal-content-accept">Accept</button
-          ><button class="modal-content-decline">Decline</button>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
+
 <!-- Modal Profile -->
 <div class="modal modal-profile">
   <div class="modal-icon-select">

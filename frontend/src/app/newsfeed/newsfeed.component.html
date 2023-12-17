@@ -4,9 +4,9 @@
     <div class="left_row_profile">
       <img id="portada" src="../../assets/images/portada.jpg" />
       <div class="left_row_profile">
-        <img id="profile_pic" src={{profilePic}} />
+        <img id="profile_pic" src="{{ profilePic }}" />
         <span
-          >{{userName}}<br />
+          >{{ userName }}<br />
           <p>150k followers / 50 follow</p></span
         >
       </div>
@@ -148,7 +148,7 @@
         <ul>
           <li *ngFor="let comment of comments">
             <div class="feedcomments-user">
-              <img src={{comment.comment_user_profile_image}} />
+              <img src="{{ comment.comment_user_profile_image }}" />
               <span
                 ><b>{{ comment.post_user_name }}</b
                 ><br />
@@ -156,13 +156,42 @@
               >
             </div>
             <div class="feedcomments-comment">
-              <p>
+              <p *ngIf="!showEditCommentForm">
                 {{ comment.comment }}
               </p>
+              <div class="row" *ngIf="showEditCommentForm">
+                <form
+                  [formGroup]="editCommentForm"
+                  (ngSubmit)="editComment(comment.comment_id, post.post_id)"
+                >
+                  <div class="comment_textarea">
+                    <div>
+                      <textarea
+                        type="text"
+                        placeholder="Edit this comment"
+                        style="resize: none"
+                        formControlName="updatedComment"
+                      ></textarea>
+                    </div>
+                    <div class="comment_icons">
+                      <button type="submit">Post Edited comment</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="feedcomments-foot">
+            <div class="feedcomments-foot" style="gap: 2rem">
               <p>
-                <a href=""><i class="fa fa-reply"></i> reply</a>
+                <a><i class="fa fa-reply"></i></a>
+              </p>
+              <p
+                (click)="toggleEditCommentForm()"
+                (click)="fetchSingleComment(comment.comment_id)"
+              >
+                <a> <i class="fa fa-pencil pe-2"></i></a>
+              </p>
+              <p (click)="deleteComment(comment.comment_id, comment.comment)">
+                <a><i class="fa fa-trash"></i></a>
               </p>
             </div>
           </li>
