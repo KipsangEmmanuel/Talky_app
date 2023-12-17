@@ -85,7 +85,7 @@
         </form>
       </div>
     </div>
-    <div class="row border-radius" *ngFor="let post of posts">
+    <div class="row border-radius" *ngFor="let post of posts; let i = index">
       <div class="feed">
         <div class="feed_title">
           <img src="{{ post.profileImage }}" alt="" />
@@ -104,8 +104,18 @@
         </div>
         <div class="feed_footer">
           <ul class="feed_footer_left">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-heart"></i> 22k
+            <li
+              class="hover-orange selected-orange"
+              (click)="toggleLike(post.post_id)"
+            >
+              <i
+                class="fa"
+                [ngClass]="{
+                  'fa-heart': isPostLiked,
+                  'fa-heart-o': !isPostLiked
+                }"
+              ></i>
+              {{totalLikes}}
             </li>
             <li>
               <span><b>Jimmy, Andrea</b> and 47 more liked this</span>

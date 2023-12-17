@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./newsfeed.component.css'],
 })
 export class NewsfeedComponent implements OnInit {
+  isPostLiked: boolean = false;
   selectedPostType: string = 'text';
   selectedFile: Observable<string | ArrayBuffer | null> | null = null;
   postFiles: any[] = [];
@@ -24,6 +25,7 @@ export class NewsfeedComponent implements OnInit {
   token: string | null = localStorage.getItem('token');
   profilePic: string | null = localStorage.getItem('profilePic');
   userName: string | null = localStorage.getItem('user_name');
+  totalLikes!: number;
 
   showEditCommentForm = false;
   editCommentForm!: FormGroup;
@@ -314,5 +316,49 @@ export class NewsfeedComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  };
+  toggleLike = (post_id: string) => {
+    try {
+      const user_id: string | null = localStorage.getItem('user_id');
+
+      // this.getTotalLikes(post_id);
+
+      if (user_id !== null && this.token !== null) {
+        this.postService
+          .toggleLikePost(post_id, user_id, this.token)
+          .subscribe((res) => {
+            console.log(res);
+
+            // Check the response and update isPostLiked accordingly
+            this.isPostLiked = res.message === 'Post Liked';
+          });
+      } else {
+        console.log('There is no token or user_id');
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // getTotalLikes = (post_id: string) => {
+  //   try {
+  //     if (!this.token) {
+  //       console.log('there is no token');
+  //       return;
+  //     }
+
+  //     this.postService.getPostLikes(post_id, this.token).subscribe((res) => {
+  //       console.log(res);
+
+  //       if (!res.likes) {
+  //         console.log('no likes on the posts');
+  //       } else {
+  //         res.likes.likes.length = this.totalLikes;
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
   };
 }
