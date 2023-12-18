@@ -20,6 +20,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
+import { FollowersComponent } from './followers/followers.component';
+import { FollowingComponent } from './following/following.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { LandingComponent } from './landing/landing.component';
     ChangePasswordComponent,
     AettingsComponent,
     LandingComponent,
+    FollowersComponent,
+    FollowingComponent,
   ],
   imports: [
     BrowserModule,

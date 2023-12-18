@@ -83,36 +83,40 @@ export const getFollowedUsers = async (req: Request, res: Response) => {
 export const getFollowers = async (
   req: Request,
   res: Response
-): Promise<void> => {
+) => {
   try {
-    const { followed_user_id } = req.params;
+    const current_user_id = req.params.user_id;
 
-    const followers = await execute(GET_FOLLOWERS_PROCEDURE, {
-      p_followed_user_id: followed_user_id,
-    });
+    const procedureName = "GetFollowers";
+    const result = await execute(procedureName, { current_user_id });
 
-    res.status(200).json({ followers });
+    return res.json(result.recordset);
   } catch (error) {
-    console.error("Error getting followers:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log(error);
+    res.status(500).send({
+      error: (error as Error).message,
+      message: "Internal Sever Error",
+    });
   }
 };
 
 export const getFollowings = async (
   req: Request,
   res: Response
-): Promise<void> => {
+)=> {
   try {
-    const { follower_user_id } = req.params;
+    const current_user_id = req.params.user_id;
 
-    const followings = await execute(GET_FOLLOWINGS_PROCEDURE, {
-      p_follower_user_id: follower_user_id,
-    });
+    const procedureName = "GetFollowingUsers";
+    const result = await execute(procedureName, { current_user_id });
 
-    res.status(200).json({ followings });
+    return res.json(result.recordset);
   } catch (error) {
-    console.error("Error getting followings:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log(error);
+    res.status(500).send({
+      error: (error as Error).message,
+      message: "Internal Sever Error",
+    });
   }
 };
 
