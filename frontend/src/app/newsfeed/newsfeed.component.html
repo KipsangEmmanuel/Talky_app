@@ -117,7 +117,7 @@
                   'fa-heart-o': !isPostLiked
                 }"
               ></i>
-              <p *ngIf="postDetails">Likes: {{ postDetails.likes }}</p>
+              <p>{{ post.likeCount }} Likes</p>
             </li>
           </ul>
           <ul class="feed_footer_right">
@@ -125,10 +125,9 @@
               class="hover-orange"
               (click)="toggleComments(post)"
               (click)="fetchComments(post.post_id)"
-              *ngIf="postDetails"
             >
               <i class="fa fa-comments-o"></i>
-              {{ postDetails.comments }} comments
+              {{ post.commentCount }} comments
             </li>
           </ul>
         </div>

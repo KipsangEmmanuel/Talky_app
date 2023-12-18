@@ -365,7 +365,9 @@ export class NewsfeedComponent implements OnInit {
         this.postService
           .toggleLikePost(post_id, user_id, this.token)
           .subscribe((res) => {
-            // console.log(res);
+            console.log(res);
+
+            this.fetchPosts()
 
             // Check the response and update isPostLiked accordingly
             this.isPostLiked = res.message === 'Post Liked';
