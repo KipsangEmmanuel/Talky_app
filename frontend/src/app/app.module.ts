@@ -12,7 +12,7 @@ import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PhotosComponent } from './photos/photos.component';
+
 import { PersonalInfoComponent } from './settings/personal-info/personal-info.component';
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 import { AettingsComponent } from './settings/aettings/aettings.component';
@@ -35,7 +35,7 @@ import { FollowingComponent } from './following/following.component';
     FriendsComponent,
     AboutComponent,
     ProfileComponent,
-    PhotosComponent,
+
     PersonalInfoComponent,
     ChangePasswordComponent,
     AettingsComponent,
@@ -49,7 +49,7 @@ import { FollowingComponent } from './following/following.component';
     NgxDropzoneModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

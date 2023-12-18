@@ -8,7 +8,7 @@ import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PhotosComponent } from './photos/photos.component';
+
 import { AettingsComponent } from './settings/aettings/aettings.component';
 import { LandingComponent } from './landing/landing.component';
 import { FollowersComponent } from './followers/followers.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'friends', component: FriendsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'photos', component: PhotosComponent },
+  
   { path: 'settings', component: AettingsComponent },
   { path: '', component: LandingComponent },
   { path: 'followers', component: FollowersComponent },
