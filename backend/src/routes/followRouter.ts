@@ -4,13 +4,17 @@ import { verifyToken } from "../middleware/verifyToken";
 import {
   followUser,
   followingPosts,
+  getFollowedUsers,
   getFollowers,
   getFollowings,
+  unfollowUser,
 } from "../controllers/followController";
 
 const follow_router = Router();
 
-follow_router.post("/toggleFollowUser", verifyToken, followUser);
+follow_router.post("/follow", verifyToken, followUser);
+follow_router.post("/unfollow", verifyToken, unfollowUser);
+follow_router.get("/followed/:user_id", verifyToken, getFollowedUsers);
 follow_router.get("/getFollowers/:followed_user_id", verifyToken, getFollowers);
 follow_router.get(
   "/getFollowings/:following_user_id",

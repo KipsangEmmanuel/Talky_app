@@ -7,7 +7,7 @@ import { Post } from "../types/postInterface";
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
 
     let { postImage, created_by_user_id, caption } = req.body;
 

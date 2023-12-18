@@ -11,7 +11,7 @@ CREATE  TABLE users (
 	resetPassword Bit default 0,
 	justRegistered bit default 1,
 	password varchar(250) NOT NULL,
-	
+	created_at DATETIME DEFAULT GETDATE()	
 )
 
 -- DROP TABLE users

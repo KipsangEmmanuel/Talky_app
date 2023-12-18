@@ -38,7 +38,7 @@ export class NewsfeedComponent implements OnInit {
     private commentService: CommentService
   ) {
     this.postForm = this.formBuilder.group({
-      postImage: [],
+      postImage: '',
       caption: '',
     });
     this.commentForm = this.formBuilder.group({
@@ -77,21 +77,10 @@ export class NewsfeedComponent implements OnInit {
     if (this.postForm.valid) {
       // Upload all images
 
-      const data = new FormData();
-      const file_data = this.postFiles[0];
-      data.append('file', file_data);
-      data.append('upload_preset', 'xznu6cwm');
-      data.append('cloud_name', 'drkjise3u');
-
-      this.upload.uploadImage(data).subscribe((res) => {
-        console.log(res.secure_url);
-
-        this.postForm.value.postImage = res.secure_url;
-
-        // Create the post
+      if (this.postFiles.length === 0) {
         let details: PostDetails = this.postForm.value;
-
-        console.log(details);
+        // this.postForm.value.postImage = ''
+        // console.log(details);
 
         const user_id = localStorage.getItem('user_id');
 
@@ -109,7 +98,7 @@ export class NewsfeedComponent implements OnInit {
 
         this.postService.createPost(details, this.token).subscribe(
           (response) => {
-            console.log(response);
+            // console.log(response);
 
             this.fetchPosts();
             this.postForm.reset();
@@ -122,7 +111,54 @@ export class NewsfeedComponent implements OnInit {
             // console.error('Error submitting form:', error);
           }
         );
-      });
+      } else {
+        const data = new FormData();
+        const file_data = this.postFiles[0];
+        data.append('file', file_data);
+        data.append('upload_preset', 'xznu6cwm');
+        data.append('cloud_name', 'drkjise3u');
+
+        this.upload.uploadImage(data).subscribe((res) => {
+          // console.log(res.secure_url);
+
+          this.postForm.value.postImage = res.secure_url;
+
+          // Create the post
+          let details: PostDetails = this.postForm.value;
+
+          // console.log(details);
+
+          const user_id = localStorage.getItem('user_id');
+
+          if (!this.token) {
+            console.log('there is no token');
+            return;
+          }
+
+          if (user_id !== null) {
+            details.created_by_user_id = user_id;
+          } else {
+            console.log('There is no token or user_id');
+            return;
+          }
+
+          this.postService.createPost(details, this.token).subscribe(
+            (response) => {
+              // console.log(response);
+
+              this.fetchPosts();
+              this.postForm.reset();
+              this.postFiles = []; // Clear the array of uploaded files
+            },
+            (error) => {
+              console.log(error);
+
+              // Handle error
+              // console.error('Error submitting form:', error);
+            }
+          );
+        });
+      }
     }
   }
 
@@ -134,7 +170,7 @@ export class NewsfeedComponent implements OnInit {
 
     try {
       this.postService.getAllPosts(this.token).subscribe((res) => {
-        // console.log(res);
+        console.log(res);
         this.posts = res;
       });
     } catch (error) {
@@ -152,7 +188,7 @@ export class NewsfeedComponent implements OnInit {
       this.commentService
         .getPostComments(post_id, this.token)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.comments = res;
         });
     } catch (error) {
@@ -344,7 +380,7 @@ export class NewsfeedComponent implements OnInit {
   };
 
   fetchPostDetails(post_id: string) {
-     try {
+    try {
       if (!this.token) {
         console.error('Token not found.');
         return;
@@ -353,17 +389,15 @@ export class NewsfeedComponent implements OnInit {
         (data) => {
           this.postDetails = data;
 
-          // console.log(data);
-          
+          // console.log(post_id);
         },
         (error) => {
           console.error('Error fetching post details:', error);
         }
       );
-     } catch (error) {
+    } catch (error) {
       console.log(error);
-      
-     }
+    }
   }
 
   // getTotalLikes = (post_id: string) => {

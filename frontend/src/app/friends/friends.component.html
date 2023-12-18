@@ -1,4 +1,3 @@
-
 <div class="all">
   <div class="rowfixed"></div>
   <div class="left_row">
@@ -32,133 +31,30 @@
   <div class="right_row" style="width: 80%">
     <div class="row border-radius">
       <div class="friend">
-        <div class="friend_title">
-          <img src="../../assets/images/user-7.jpg" alt="" />
+        <div class="friend_title" *ngFor="let user of users">
+          <img src="{{ user.profileImage }}" alt="" />
           <span
-            ><b>Tamara Romanoff</b><br />
-            <p>4 Friends in Common</p></span
+            ><b>{{ user.fullName }}</b
+            ><br />
+            <p>
+              {{ user.followersCount }} Followers |
+              {{ user.followingCount }} Following
+            </p>
+          </span>
+          <button
+            class="add-friend"
+            *ngIf="user.have_followed === 0"
+            (click)="followUser(user.user_id)"
           >
-          <button class="add-friend">Add</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-2.jpg" alt="" />
-          <span
-            ><b>Tony Stevens</b><br />
-            <p>2 Friends in Common</p></span
+            Follow
+          </button>
+          <button
+            class="delete-friend"
+            *ngIf="user.have_followed === 1"
+            (click)="unfollowUser(user.user_id)"
           >
-          <button class="add-friend">Add</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-3.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>1 Friends in Common</p></span
-          >
-          <button class="add-friend">Add</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-6.jpg" alt="" />
-          <span
-            ><b>Tamara Romanoff</b><br />
-            <p>4 Friends in Common</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-4.jpg" alt="" />
-          <span
-            ><b>Tony Stevens</b><br />
-            <p>Mutual Friend: Sarah Hetfield</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-5.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>Mutual Friend: Tony Stevens</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-7.jpg" alt="" />
-          <span
-            ><b>Tamara Romanoff</b><br />
-            <p>4 Friends in Common</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-2.jpg" alt="" />
-          <span
-            ><b>Tony Stevens</b><br />
-            <p>Mutual Friend: Sarah Hetfield</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-3.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>Mutual Friend: Tony Stevens</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-3.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>1 Friends in Common</p></span
-          >
-          <button class="add-friend">Add</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-6.jpg" alt="" />
-          <span
-            ><b>Tamara Romanoff</b><br />
-            <p>4 Friends in Common</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-4.jpg" alt="" />
-          <span
-            ><b>Tony Stevens</b><br />
-            <p>Mutual Friend: Sarah Hetfield</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-5.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>Mutual Friend: Tony Stevens</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-7.jpg" alt="" />
-          <span
-            ><b>Tamara Romanoff</b><br />
-            <p>4 Friends in Common</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-2.jpg" alt="" />
-          <span
-            ><b>Tony Stevens</b><br />
-            <p>Mutual Friend: Sarah Hetfield</p></span
-          >
-          <button class="delete-friend">Delete</button>
-        </div>
-        <div class="friend_title">
-          <img src="../../assets/images/user-3.jpg" alt="" />
-          <span
-            ><b>Stagg Clothing</b><br />
-            <p>Mutual Friend: Tony Stevens</p></span
-          >
-          <button class="delete-friend">Delete</button>
+            Unfollow
+          </button>
         </div>
       </div>
     </div>

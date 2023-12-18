@@ -4,15 +4,15 @@ Content-Type: application/json
 
 {
     "user_name": "Daniel",
-    "email":"gamemy177@gmail.com",
+    "email":"gamemy178@gmail.com",
     "password": "@Santa2023",
-     "fullName": "Daniel Kasee"
+     "fullName": "Daniel Kinyi"
 }
 
 #####get all users
 
 get http://localhost:4201/user
-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNzI0ODU2LCJleHAiOjE3MDI4MTEyNTZ9.SH6mAz0e7_CfzO4ZpUJHKp_7M8PutD3OSNMWfqOY5Kc
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiMTU1MjYyOWEtNjJhYS00N2Q5LWI5ZDktMDI0YTJhNjdiNDQ3IiwicHJvZmlsZUltYWdlIjoiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MTgwMjAzODIxMTMtYTdlOGZjMzhlYWM5P3E9ODAmdz0xNDM0JmF1dG89Zm9ybWF0JmZpdD1jcm9wJml4bGliPXJiLTQuMC4zJml4aWQ9TTN3eE1qQTNmREI4TUh4d2FHOTBieTF3WVdkbGZIeDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCIsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyOTA1ODkwLCJleHAiOjE3MDI5OTIyOTB9.AgRwyaRsa_6H-Y40CTHS1edIxeTGOTiKvh8Bkneb1_s
 
 #####get one user by id
 get http://localhost:4201/user/28e61f6e-e838-41c7-a155-380a84d78871
