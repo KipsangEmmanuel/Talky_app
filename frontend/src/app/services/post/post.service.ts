@@ -65,4 +65,10 @@ export class PostService {
       headers: this.getHeadersWithToken(token),
     });
   }
+
+  getPostdetails(postId: string, token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/details/${postId}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
 }

@@ -86,7 +86,7 @@
       </div>
     </div>
     <div class="row border-radius" *ngFor="let post of posts; let i = index">
-      <div class="feed">
+      <div class="feed" (mouseenter)="fetchPostDetails(post.post_id)">
         <div class="feed_title">
           <img src="{{ post.profileImage }}" alt="" />
           <span
@@ -107,27 +107,29 @@
             <li
               class="hover-orange selected-orange"
               (click)="toggleLike(post.post_id)"
+              (mouseenter)="fetchPostDetails(post.post_id)"
+              style="display: flex; align-content: center"
             >
               <i
                 class="fa"
+                style="padding: 1rem"
                 [ngClass]="{
                   'fa-heart': isPostLiked,
                   'fa-heart-o': !isPostLiked
                 }"
               ></i>
-              {{totalLikes}}
+              <p *ngIf="postDetails">Likes: {{ postDetails.likes }}</p>
             </li>
-            <li>
-              <span><b>Jimmy, Andrea</b> and 47 more liked this</span>
-            </li>
+           
           </ul>
           <ul class="feed_footer_right">
             <li
               class="hover-orange"
               (click)="toggleComments(post)"
               (click)="fetchComments(post.post_id)"
+              *ngIf="postDetails"
             >
-              <i class="fa fa-comments-o"></i> 860 comments
+              <i class="fa fa-comments-o"></i> {{ postDetails.comments }} comments
             </li>
           </ul>
         </div>

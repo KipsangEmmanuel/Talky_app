@@ -260,3 +260,33 @@ export const getPostLikes = async (req: Request, res: Response) => {
     });
   }
 };
+// Add this to your post controller
+export const getPostDetails = async (req: Request, res: Response) => {
+  try {
+    const post_id = req.params.post_id;
+
+    // Retrieve post details including likes and comments
+    const postDetails = await execute("getPostById", { post_id });
+
+    if (!postDetails.recordset || postDetails.recordset.length === 0) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    const post = postDetails.recordset[0];
+    const likes = await execute("getPostLikes", { post_id });
+    const comments = await execute("getCommentsOfPost", { post_id });
+
+    return res.status(200).json({
+      post,
+      likes: likes.recordset.length,
+      comments: comments.recordset.length,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};

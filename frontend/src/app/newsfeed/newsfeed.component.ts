@@ -26,6 +26,7 @@ export class NewsfeedComponent implements OnInit {
   profilePic: string | null = localStorage.getItem('profilePic');
   userName: string | null = localStorage.getItem('user_name');
   totalLikes!: number;
+  postDetails!: any;
 
   showEditCommentForm = false;
   editCommentForm!: FormGroup;
@@ -319,6 +320,7 @@ export class NewsfeedComponent implements OnInit {
   };
   toggleLike = (post_id: string) => {
     try {
+      // this.fetchPostDetails(post_id)
       const user_id: string | null = localStorage.getItem('user_id');
 
       // this.getTotalLikes(post_id);
@@ -327,7 +329,7 @@ export class NewsfeedComponent implements OnInit {
         this.postService
           .toggleLikePost(post_id, user_id, this.token)
           .subscribe((res) => {
-            console.log(res);
+            // console.log(res);
 
             // Check the response and update isPostLiked accordingly
             this.isPostLiked = res.message === 'Post Liked';
@@ -340,6 +342,29 @@ export class NewsfeedComponent implements OnInit {
       console.log(error);
     }
   };
+
+  fetchPostDetails(post_id: string) {
+     try {
+      if (!this.token) {
+        console.error('Token not found.');
+        return;
+      }
+      this.postService.getPostdetails(post_id, this.token).subscribe(
+        (data) => {
+          this.postDetails = data;
+
+          // console.log(data);
+          
+        },
+        (error) => {
+          console.error('Error fetching post details:', error);
+        }
+      );
+     } catch (error) {
+      console.log(error);
+      
+     }
+  }
 
   // getTotalLikes = (post_id: string) => {
   //   try {
@@ -360,5 +385,5 @@ export class NewsfeedComponent implements OnInit {
   //   } catch (error) {
   //     console.log(error);
   //   }
-  };
+  // };
 }
