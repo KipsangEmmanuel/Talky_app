@@ -1,1 +1,83 @@
-<p>following works!</p>
+<div class="all">
+  <div class="rowfixed"></div>
+  <div class="left_row">
+    <div class="left_row_profile">
+      <img id="portada" src="../../assets/images/portada.jpg" />
+      <div class="left_row_profile">
+        <img id="profile_pic" src="../../assets/images/user.jpg" />
+        <span
+          >Jonh Hamstrong<br />
+          <p>150k followers / 50 follow</p></span
+        >
+      </div>
+    </div>
+    <div class="rowmenu">
+      <ul>
+        <li>
+          <a routerLink="/newsfeed"><i class="fa fa-globe"></i>Newsfeed</a>
+        </li>
+        <li>
+          <a routerLink="/profile" id="rowmenu-selected"
+            ><i class="fa fa-user"></i>Profile</a
+          >
+        </li>
+        <li>
+          <a routerLink="/friends"><i class="fa fa-users"></i>Friends</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right_row" style="width: 80%">
+    <div class="row border-radius">
+      <div class="feed">
+        <div class="feed_title">
+          <span
+            ><a routerLink="/profile"><b>Profile</b></a> |
+            <a routerLink="/about"><b>About</b></a> |
+            <a routerLink="/photos"><b>Photos</b> </a> |
+            <a routerLink="/followers"><b>followers</b> </a> |
+            <a routerLink="/followings" id="select_profile_menu"
+              ><b>followings</b>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right_row" style="width: 80%">
+      <div class="row border-radius">
+        <div class="friend" *ngIf="users.length > 0">
+          <div class="friend_title" *ngFor="let user of users">
+            <img src="{{ user.profileImage }}" alt="" />
+            <span
+              ><b>{{ user.fullName }}</b
+              ><br />
+              <p>
+                {{ user.followersCount }} Followers |
+                {{ user.followingCount }} Following
+              </p>
+            </span>
+            <button
+              class="add-friend"
+              *ngIf="user.have_followed === 0"
+              (click)="followUser(user.user_id)"
+            >
+              Follow
+            </button>
+            <button
+              class="delete-friend"
+              *ngIf="user.have_followed === 1"
+              (click)="unfollowUser(user.user_id)"
+            >
+              Unfollow
+            </button>
+          </div>
+        </div>
+        <div class="friend" *ngIf="users.length === 0">
+          <div class="friend_title"><p>No users available</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

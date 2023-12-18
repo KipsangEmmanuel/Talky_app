@@ -16,13 +16,17 @@ export class FollowersComponent {
   constructor(
     private userService: UserService,
     private followService: FollowService
-  ) {}
+  ) { }
+  
+  ngOnInit() {
+    this.fetchUsers()
+  }
 
   fetchUsers = async () => {
     if (this.token && this.user_id) {
       try {
         this.followService
-          .getFollowedUsers(this.user_id, this.token)
+          .getFollowers(this.user_id, this.token)
           .subscribe((res) => {
             this.users = res;
             console.log(res);

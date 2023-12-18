@@ -11,6 +11,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { PhotosComponent } from './photos/photos.component';
 import { AettingsComponent } from './settings/aettings/aettings.component';
 import { LandingComponent } from './landing/landing.component';
+import { FollowersComponent } from './followers/followers.component';
+import { FollowingComponent } from './following/following.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'photos', component: PhotosComponent },
   { path: 'settings', component: AettingsComponent },
-  {path: '', component: LandingComponent}
+  { path: '', component: LandingComponent },
+  { path: 'followers', component: FollowersComponent },
+  {path: 'followings',component: FollowingComponent}
 ];
 
 @NgModule({

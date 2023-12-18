@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../services/user/user.service';
+
 import { FollowService } from '../services/follow/follow.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class FriendsComponent {
   user_id = localStorage.getItem('user_id');
 
   constructor(
-    private userService: UserService,
+   
     private followService: FollowService
   ) {}
 

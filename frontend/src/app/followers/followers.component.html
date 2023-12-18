@@ -17,12 +17,12 @@
           <a routerLink="/newsfeed"><i class="fa fa-globe"></i>Newsfeed</a>
         </li>
         <li>
-          <a routerLink="/profile"><i class="fa fa-user"></i>Profile</a>
+          <a routerLink="/profile" id="rowmenu-selected"
+            ><i class="fa fa-user"></i>Profile</a
+          >
         </li>
         <li>
-          <a routerLink="/friends" id="rowmenu-selected"
-            ><i class="fa fa-users"></i>Friends</a
-          >
+          <a routerLink="/friends"><i class="fa fa-users"></i>Friends</a>
         </li>
       </ul>
     </div>
@@ -30,7 +30,24 @@
 
   <div class="right_row" style="width: 80%">
     <div class="row border-radius">
-      <div class="friend">
+      <div class="feed">
+        <div class="feed_title">
+          <span
+            ><a routerLink="/profile"><b>Profile</b></a> |
+            <a routerLink="/about"><b>About</b></a> |
+            <a routerLink="/photos"><b>Photos</b> </a> |
+            <a routerLink="/followers" id="select_profile_menu"
+              ><b>followers</b>
+            </a>
+            |
+            <a routerLink="/followings"><b>followings</b> </a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="right_row" style="width: 80%"> -->
+    <div class="row border-radius">
+      <div class="friend" *ngIf="users.length > 0">
         <div class="friend_title" *ngFor="let user of users">
           <img src="{{ user.profileImage }}" alt="" />
           <span
@@ -41,7 +58,7 @@
               {{ user.followingCount }} Following
             </p>
           </span>
-          <button
+          <!-- <button
             class="add-friend"
             *ngIf="user.have_followed === 0"
             (click)="followUser(user.user_id)"
@@ -54,9 +71,13 @@
             (click)="unfollowUser(user.user_id)"
           >
             Unfollow
-          </button>
+          </button> -->
         </div>
+      </div>
+      <div class="friend" *ngIf="users.length === 0">
+        <div class="friend_title"><p>No users available</p></div>
       </div>
     </div>
   </div>
+  <!-- </div> -->
 </div>

@@ -37,6 +37,17 @@ export class FollowService {
     });
   }
 
+  getFollowers(loggedInUserID: string, token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getFollowers/${loggedInUserID}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+  getFollowings(loggedInUserID: string, token: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getFollowings/${loggedInUserID}`, {
+      headers: this.getHeadersWithToken(token),
+    });
+  }
+
   unfollowUser(
     follower_id: string,
     following_id: string,
