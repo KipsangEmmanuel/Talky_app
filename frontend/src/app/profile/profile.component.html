@@ -1,13 +1,12 @@
-
 <div class="all">
   <div class="rowfixed"></div>
   <div class="left_row">
     <div class="left_row_profile">
       <img id="portada" src="../../assets/images/portada.jpg" />
       <div class="left_row_profile">
-        <img id="profile_pic" src="../../assets/images/user.jpg" />
+        <img id="profile_pic" src="{{ profilePic }}" />
         <span
-          >Jonh Hamstrong<br />
+          >{{ userName }}<br />
           <p>150k followers / 50 follow</p></span
         >
       </div>
@@ -29,7 +28,7 @@
     </div>
   </div>
 
-  <div class="right_row" style="width: 80%;">
+  <div class="right_row" style="width: 80%">
     <div class="row border-radius">
       <div class="feed">
         <div class="feed_title">
@@ -38,14 +37,10 @@
               ><b>Profile</b></a
             >
             | <a routerLink="/about"><b>About</b></a> |
-            <a routerLink="/photos"><b>Photos</b>
-            </a> | 
-            <a routerLink="/followers" ><b>followers</b>
-            </a> |
-            <a routerLink="/followings" ><b>followings</b>
-            </a>
-            </span
-          >
+            <a routerLink="/photos"><b>Photos</b> </a> |
+            <a routerLink="/followers"><b>followers</b> </a> |
+            <a routerLink="/followings"><b>followings</b> </a>
+          </span>
         </div>
       </div>
     </div>
@@ -57,158 +52,181 @@
             ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Status</span
           >
         </div>
-        <form method="" action="/">
+        <form [formGroup]="postForm" (ngSubmit)="sharePost()">
           <div class="publish_textarea">
             <img
               class="border-radius-image"
               src="../../assets/images/user.jpg"
               alt=""
             />
-            <textarea
-              type="text"
-              placeholder="¿Whats up, Jonh?"
-              style="resize: none"
-            ></textarea>
+            <div style="display: flex; flex-direction: column">
+              <textarea
+                type="text"
+                placeholder="Whats up, John?"
+                style="resize: none"
+                formControlName="caption"
+              ></textarea>
+              <div
+                *ngIf="
+                  selectedPostType === 'image' || selectedPostType === 'video'
+                "
+              >
+                <ngx-dropzone (change)="onSelectPostImage($event)">
+                  <ngx-dropzone-label>Drop Post Image</ngx-dropzone-label>
+                  <ngx-dropzone-preview
+                    *ngFor="let f of postFiles"
+                    [removable]="true"
+                    (removed)="onRemovePostImage(f)"
+                  >
+                    <ngx-dropzone-label
+                      >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                    >
+                  </ngx-dropzone-preview>
+                </ngx-dropzone>
+              </div>
+            </div>
           </div>
           <div class="publish_icons">
             <ul>
-              <li><i class="fa fa-camera"></i></li>
-              <li><i class="fa fa-video-camera"></i></li>
-              <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
+              <li (click)="selectedPostType = 'text'">
+                <i class="fa fa-pencil pe-2"></i>
+              </li>
+              <li (click)="selectedPostType = 'image'">
+                <i class="fa fa-camera"></i>
+              </li>
+              <li (click)="selectedPostType = 'video'">
+                <i class="fa fa-video-camera"></i>
+              </li>
             </ul>
-            <button>Publish</button>
+            <button type="submit">Publish</button>
           </div>
         </form>
       </div>
     </div>
 
-    <div class="row border-radius">
-      <div class="feed">
+    <div class="row border-radius" *ngFor="let post of posts; let i = index">
+      <div class="feed" (mouseenter)="fetchPostDetails(post.post_id)">
         <div class="feed_title">
-          <img src="../../assets/images/user.jpg" alt="" />
+          <img src="{{ post.profileImage }}" alt="" />
           <span
-            ><b>Jonh Hamstrong</b> shared a <a routerLink="/newsfeed">photo</a
+            ><b>{{ post.fullName }}</b> shared a <a routerLink="photos">Post</a
             ><br />
-            <p>March 2 at 6:05pm</p></span
+            <p>{{ post.created_at | date }}</p></span
           >
         </div>
         <div class="feed_content">
           <div class="feed_content_image">
-            <a routerLink="/newsfeed"
-              ><img src="../../assets/images/user.jpg" alt=""
-            /></a>
+            <p>{{ post.caption }}</p>
+
+            <img src="{{ post.postImage }}" alt="" />
           </div>
         </div>
         <div class="feed_footer">
           <ul class="feed_footer_left">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-heart"></i> 22k
-            </li>
-            <li>
-              <span><b>Jimmy, Andrea</b> and 47 more liked this</span>
+            <li
+              class="hover-orange selected-orange"
+              (click)="toggleLike(post.post_id)"
+              style="display: flex; align-content: center"
+            >
+              <i
+                class="fa"
+                style="padding: 1rem"
+                [ngClass]="{
+                  'fa-heart': isPostLiked,
+                  'fa-heart-o': !isPostLiked
+                }"
+              ></i>
+              <p *ngIf="postDetails">Likes: {{ postDetails.likes }}</p>
             </li>
           </ul>
           <ul class="feed_footer_right">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-share"></i> 7k
-            </li>
-            <a routerLink="/newsfeed" style="color: #515365"
-              ><li class="hover-orange">
-                <i class="fa fa-comments-o"></i> 74 comments
-              </li></a
+            <li
+              class="hover-orange"
+              (click)="toggleComments(post)"
+              (click)="fetchComments(post.post_id)"
+              *ngIf="postDetails"
             >
+              <i class="fa fa-comments-o"></i>
+              {{ postDetails.comments }} comments
+            </li>
           </ul>
         </div>
       </div>
-    </div>
 
-    <div class="row border-radius">
-      <div class="feed">
-        <div class="feed_title">
-          <img src="../../assets/images/user.jpg" alt="" />
-          <span
-            ><b>Jonh Hamstrong</b> shared a <a routerLink="/newsfeed">video</a
-            ><br />
-            <p>March 1 at 3:53pm</p></span
+      <div class="feedcomments" *ngIf="post.showComments">
+        <div class="row">
+          <form
+            [formGroup]="commentForm"
+            (ngSubmit)="createComment(post.post_id)"
           >
+            <div class="comment_textarea">
+              <img class="border-radius-image" src="{{ profilePic }}" alt="" />
+              <div>
+                <textarea
+                  type="text"
+                  placeholder="create a comment"
+                  style="resize: none"
+                  formControlName="comment"
+                ></textarea>
+              </div>
+              <div class="comment_icons">
+                <button type="submit">Post comment</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="feed_content">
-          <div class="feed_content_image">
-            <iframe
-              src="https://www.youtube.com/embed/jR8L9UyExH4"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-        <div class="feed_footer">
-          <ul class="feed_footer_left">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-heart"></i> 1k
-            </li>
-            <li>
-              <span><b>Jimmy, Andrea</b> and 47 more liked this</span>
-            </li>
-          </ul>
-          <ul class="feed_footer_right">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-share"></i> 177
-            </li>
-            <a routerLink="/newsfeed" style="color: #515365"
-              ><li class="hover-orange">
-                <i class="fa fa-comments-o"></i> 12 comments
-              </li></a
-            >
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="row border-radius">
-      <div class="feed">
-        <div class="feed_title">
-          <img src="../../assets/images/user-6.jpg" alt="" />
-          <span
-            ><b>Valentine Krashe</b> for
-            <a href="profile.html">Jonh Hamstrong</a><br />
-            <p>April 1 at 7:01am</p></span
-          >
-        </div>
-        <div class="feed_content">
-          <div class="feed_content_image">
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum. Sed ut perspiciatis unde omnis iste natus
-              error sit voluptatem accusantium doloremque.
-            </p>
-          </div>
-        </div>
-        <div class="feed_footer">
-          <ul class="feed_footer_left">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-heart"></i> 159
-            </li>
-            <li>
-              <span><b>Jimmy, Andrea</b> and 157 more liked this</span>
-            </li>
-          </ul>
-          <ul class="feed_footer_right">
-            <li class="hover-orange selected-orange">
-              <i class="fa fa-share"></i> 7k
-            </li>
-            <a routerLink="/newsfeed" style="color: #515365"
-              ><li class="hover-orange">
-                <i class="fa fa-comments-o"></i> 14 comments
-              </li></a
-            >
-          </ul>
-        </div>
+        <ul>
+          <li *ngFor="let comment of comments">
+            <div class="feedcomments-user">
+              <img src="{{ comment.comment_user_profile_image }}" />
+              <span
+                ><b>{{ comment.post_user_name }}</b
+                ><br />
+                <p>{{ comment.created_at | date }}</p></span
+              >
+            </div>
+            <div class="feedcomments-comment">
+              <p *ngIf="!showEditCommentForm">
+                {{ comment.comment }}
+              </p>
+              <div class="row" *ngIf="showEditCommentForm">
+                <form
+                  [formGroup]="editCommentForm"
+                  (ngSubmit)="editComment(comment.comment_id, post.post_id)"
+                >
+                  <div class="comment_textarea">
+                    <div>
+                      <textarea
+                        type="text"
+                        placeholder="Edit this comment"
+                        style="resize: none"
+                        formControlName="updated_comment"
+                      ></textarea>
+                    </div>
+                    <div class="comment_icons">
+                      <button type="submit">Post Edited comment</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="feedcomments-foot" style="gap: 2rem">
+              <p>
+                <a><i class="fa fa-reply"></i></a>
+              </p>
+              <p
+                (click)="toggleEditCommentForm()"
+                (click)="fetchSingleComment(comment.comment_id)"
+              >
+                <a> <i class="fa fa-pencil pe-2"></i></a>
+              </p>
+              <p (click)="deleteComment(comment.comment_id, comment.comment)">
+                <a><i class="fa fa-trash"></i></a>
+              </p>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-
-
 </div>
