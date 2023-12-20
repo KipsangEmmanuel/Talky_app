@@ -9,4 +9,5 @@ CREATE TABLE post_user_tag (
  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+
 drop table post_user_tag

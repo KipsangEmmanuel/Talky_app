@@ -1,212 +1,214 @@
-<div class="all">
-  <div class="rowfixed"></div>
-  <div class="left_row">
-    <div class="left_row_profile">
-      <img id="portada" src="../../assets/images/portada.jpg" />
+<body>
+  <div class="all">
+    <div class="rowfixed"></div>
+    <div class="left_row">
       <div class="left_row_profile">
-        <img id="profile_pic" src="{{ profilePic }}" />
-        <span
-          >{{ userName }}<br />
-          <p>150k followers / 50 follow</p></span
-        >
-      </div>
-    </div>
-    <div class="rowmenu">
-      <ul>
-        <li>
-          <a routerLink="/newsfeed"><i class="fa fa-globe"></i>Newsfeed</a>
-        </li>
-        <li>
-          <a routerLink="/profile"><i class="fa fa-user"></i>Profile</a>
-        </li>
-        <li>
-          <a routerLink="/friends"><i class="fa fa-users"></i>Friends</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="right_row" style="width: 80%">
-    <div class="row">
-      <div class="publish">
-        <div class="row_title">
+        <img id="portada" src="../../assets/images/talk.png" />
+        <div class="left_row_profile">
+          <img id="profile_pic" src="{{ profilePic }}" />
           <span
-            ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Status</span
+            >{{ userName }}<br />
+            <p>1k followers / 50 follow</p></span
           >
-        </div>
-        <form [formGroup]="postForm" (ngSubmit)="sharePost()">
-          <div class="publish_textarea">
-            <img
-              class="border-radius-image"
-              src="../../assets/images/user.jpg"
-              alt=""
-            />
-            <div style="display: flex; flex-direction: column">
-              <textarea
-                type="text"
-                placeholder="Whats up, John?"
-                style="resize: none"
-                formControlName="caption"
-              ></textarea>
-              <div
-                *ngIf="
-                  selectedPostType === 'image' || selectedPostType === 'video'
-                "
-              >
-                <ngx-dropzone (change)="onSelectPostImage($event)">
-                  <ngx-dropzone-label>Drop Post Image</ngx-dropzone-label>
-                  <ngx-dropzone-preview
-                    *ngFor="let f of postFiles"
-                    [removable]="true"
-                    (removed)="onRemovePostImage(f)"
-                  >
-                    <ngx-dropzone-label
-                      >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
-                    >
-                  </ngx-dropzone-preview>
-                </ngx-dropzone>
-              </div>
-            </div>
-          </div>
-          <div class="publish_icons">
-            <ul>
-              <li (click)="selectedPostType = 'text'">
-                <i class="fa fa-pencil pe-2"></i>
-              </li>
-              <li (click)="selectedPostType = 'image'">
-                <i class="fa fa-camera"></i>
-              </li>
-              <li (click)="selectedPostType = 'video'">
-                <i class="fa fa-video-camera"></i>
-              </li>
-            </ul>
-            <button type="submit">Publish</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="row border-radius" *ngFor="let post of posts; let i = index">
-      <div class="feed" (mouseenter)="fetchPostDetails(post.post_id)">
-        <div class="feed_title">
-          <img src="{{ post.profileImage }}" alt="" />
-          <span
-            ><b>{{ post.fullName }}</b> shared a <a routerLink="photos">Post</a
-            ><br />
-            <p>{{ post.created_at | date }}</p></span
-          >
-        </div>
-        <div class="feed_content">
-          <div class="feed_content_image">
-            <p>{{ post.caption }}</p>
-
-            <img src="{{ post.postImage }}" alt="" />
-          </div>
-        </div>
-        <div class="feed_footer">
-          <ul class="feed_footer_left">
-            <li
-              class="hover-orange selected-orange"
-              (click)="toggleLike(post.post_id)"
-              style="display: flex; align-content: center"
-            >
-              <i
-                class="fa"
-                style="padding: 1rem"
-                [ngClass]="{
-                  'fa-heart': isPostLiked,
-                  'fa-heart-o': !isPostLiked
-                }"
-              ></i>
-              <p>{{ post.likeCount }} Likes</p>
-            </li>
-          </ul>
-          <ul class="feed_footer_right">
-            <li
-              class="hover-orange"
-              (click)="toggleComments(post)"
-              (click)="fetchComments(post.post_id)"
-            >
-              <i class="fa fa-comments-o"></i>
-              {{ post.commentCount }} comments
-            </li>
-          </ul>
         </div>
       </div>
-
-      <div class="feedcomments" *ngIf="post.showComments">
-        <div class="row">
-          <form
-            [formGroup]="commentForm"
-            (ngSubmit)="createComment(post.post_id)"
-          >
-            <div class="comment_textarea">
-              <img class="border-radius-image" src="{{ profilePic }}" alt="" />
-              <div>
-                <textarea
-                  type="text"
-                  placeholder="create a comment"
-                  style="resize: none"
-                  formControlName="comment"
-                ></textarea>
-              </div>
-              <div class="comment_icons">
-                <button type="submit">Post comment</button>
-              </div>
-            </div>
-          </form>
-        </div>
+      <div class="rowmenu">
         <ul>
-          <li *ngFor="let comment of comments">
-            <div class="feedcomments-user">
-              <img src="{{ comment.comment_user_profile_image }}" />
-              <span
-                ><b>{{ comment.post_user_name }}</b
-                ><br />
-                <p>{{ comment.created_at | date }}</p></span
-              >
-            </div>
-            <div class="feedcomments-comment">
-              <p *ngIf="!showEditCommentForm">
-                {{ comment.comment }}
-              </p>
-              <div class="row" *ngIf="showEditCommentForm">
-                <form
-                  [formGroup]="editCommentForm"
-                  (ngSubmit)="editComment(comment.comment_id, post.post_id)"
-                >
-                  <div class="comment_textarea">
-                    <div>
-                      <textarea
-                        type="text"
-                        placeholder="Edit this comment"
-                        style="resize: none"
-                        formControlName="updated_comment"
-                      ></textarea>
-                    </div>
-                    <div class="comment_icons">
-                      <button type="submit">Post Edited comment</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="feedcomments-foot" style="gap: 2rem">
-              <p>
-                <a><i class="fa fa-reply"></i></a>
-              </p>
-              <p
-                (click)="toggleEditCommentForm()"
-                (click)="fetchSingleComment(comment.comment_id)"
-              >
-                <a> <i class="fa fa-pencil pe-2"></i></a>
-              </p>
-              <p (click)="deleteComment(comment.comment_id, comment.comment)">
-                <a><i class="fa fa-trash"></i></a>
-              </p>
-            </div>
+          <li>
+            <a routerLink="/newsfeed"><i class="fa fa-globe"></i>Updates</a>
+          </li>
+          <li>
+            <a routerLink="/profile"><i class="fa fa-user"></i>Profile</a>
+          </li>
+          <li>
+            <a routerLink="/friends"><i class="fa fa-users"></i>Users</a>
           </li>
         </ul>
       </div>
     </div>
+  
+    <div class="right_row" style="width: 80%">
+      <div class="row">
+        <div class="publish">
+          <div class="row_title">
+            <span
+              ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Talky Tha Better Option..</span
+            >
+          </div>
+          <form [formGroup]="postForm" (ngSubmit)="sharePost()">
+            <div class="publish_textarea">
+              <img
+                class="border-radius-image"
+                src="{{ profilePic }}"
+                alt=""
+              />
+              <div style="display: flex; flex-direction: column">
+                <textarea
+                  type="text"
+                  placeholder="Say something..."
+                  style="resize: none"
+                  formControlName="caption"
+                ></textarea>
+                <div
+                  *ngIf="
+                    selectedPostType === 'image' || selectedPostType === 'video'
+                  "
+                >
+                  <ngx-dropzone (change)="onSelectPostImage($event)">
+                    <ngx-dropzone-label>Post an Image</ngx-dropzone-label>
+                    <ngx-dropzone-preview
+                      *ngFor="let f of postFiles"
+                      [removable]="true"
+                      (removed)="onRemovePostImage(f)"
+                    >
+                      <ngx-dropzone-label
+                        >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                      >
+                    </ngx-dropzone-preview>
+                  </ngx-dropzone>
+                </div>
+              </div>
+            </div>
+            <div class="publish_icons">
+              <ul>
+                <li (click)="selectedPostType = 'text'">
+                  <i class="fa fa-pencil pe-2"></i>
+                </li>
+                <li (click)="selectedPostType = 'image'">
+                  <i class="fa fa-camera"></i>
+                </li>
+                <li (click)="selectedPostType = 'video'">
+                  <i class="fa fa-video-camera"></i>
+                </li>
+              </ul>
+              <button class="pst" type="submit">Post</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row border-radius" *ngFor="let post of posts; let i = index">
+        <div class="feed" (mouseenter)="fetchPostDetails(post.post_id)">
+          <div class="feed_title">
+            <img src="{{ post.profileImage }}" alt="" />
+            <span
+              ><b>{{ post.fullName }}</b> shared a <a routerLink="photos">Post</a
+              ><br />
+              <p>{{ post.created_at | date }}</p></span
+            >
+          </div>
+          <div class="feed_content">
+            <div class="feed_content_image">
+              <p>{{ post.caption }}</p>
+  
+              <img src="{{ post.postImage }}" alt="" />
+            </div>
+          </div>
+          <div class="feed_footer">
+            <ul class="feed_footer_left">
+              <li
+                class="hover-orange selected-orange"
+                (click)="toggleLike(post.post_id)"
+                style="display: flex; align-content: center"
+              >
+                <i
+                  class="fa"
+                  style="padding: 1rem"
+                  [ngClass]="{
+                    'fa-heart': isPostLiked,
+                    'fa-heart-o': !isPostLiked
+                  }"
+                ></i>
+                <p>{{ post.likeCount }} Likes</p>
+              </li>
+            </ul>
+            <ul class="feed_footer_right">
+              <li
+                class="hover-orange"
+                (click)="toggleComments(post)"
+                (click)="fetchComments(post.post_id)"
+              >
+                <i class="fa fa-comments-o"></i>
+                {{ post.commentCount }} comments
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="feedcomments" *ngIf="post.showComments">
+          <div class="row">
+            <form
+              [formGroup]="commentForm"
+              (ngSubmit)="createComment(post.post_id)"
+            >
+              <div class="comment_textarea">
+                <img class="border-radius-image" src="{{ profilePic }}" alt="" />
+                <div>
+                  <textarea
+                    type="text"
+                    placeholder="create a comment"
+                    style="resize: none"
+                    formControlName="comment"
+                  ></textarea>
+                </div>
+                <div class="comment_icons">
+                  <button type="submit">Post comment</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <ul>
+            <li *ngFor="let comment of comments">
+              <div class="feedcomments-user">
+                <img src="{{ comment.comment_user_profile_image }}" />
+                <span
+                  ><b>{{ comment.post_user_name }}</b
+                  ><br />
+                  <p>{{ comment.created_at | date }}</p></span
+                >
+              </div>
+              <div class="feedcomments-comment">
+                <p *ngIf="!showEditCommentForm">
+                  {{ comment.comment }}
+                </p>
+                <div class="row" *ngIf="showEditCommentForm">
+                  <form
+                    [formGroup]="editCommentForm"
+                    (ngSubmit)="editComment(comment.comment_id, post.post_id)"
+                  >
+                    <div class="comment_textarea">
+                      <div>
+                        <textarea
+                          type="text"
+                          placeholder="Edit this comment"
+                          style="resize: none"
+                          formControlName="updated_comment"
+                        ></textarea>
+                      </div>
+                      <div class="comment_icons">
+                        <button type="submit">Post Edited comment</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="feedcomments-foot" style="gap: 2rem">
+                <p>
+                  <a><i class="fa fa-reply"></i></a>
+                </p>
+                <p
+                  (click)="toggleEditCommentForm()"
+                  (click)="fetchSingleComment(comment.comment_id)"
+                >
+                  <a> <i class="fa fa-pencil pe-2"></i></a>
+                </p>
+                <p (click)="deleteComment(comment.comment_id, comment.comment)">
+                  <a><i class="fa fa-trash"></i></a>
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</body>

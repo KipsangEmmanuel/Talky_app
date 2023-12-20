@@ -14,11 +14,12 @@ CREATE  TABLE users (
 	created_at DATETIME DEFAULT GETDATE()	
 )
 
--- DROP TABLE users
+
+DROP TABLE users
 
 
 
--- select * from users
+select * from users
 
 -- update users set isAdmin = 1 where email = 'caleb.kellah@thejitu.com'
 

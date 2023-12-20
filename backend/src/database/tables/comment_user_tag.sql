@@ -8,4 +8,5 @@ CREATE TABLE comment_user_tag (
  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+
 drop table comment_user_tag

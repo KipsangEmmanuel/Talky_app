@@ -8,6 +8,8 @@ CREATE TABLE posts (
     FOREIGN KEY (created_by_user_id) REFERENCES users(user_id)   
 );
 
+select * from posts
+
 drop TABLE posts
 
 

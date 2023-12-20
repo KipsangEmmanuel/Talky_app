@@ -3,20 +3,21 @@ post http://localhost:4201/user/register
 Content-Type: application/json
 
 {
-    "user_name": "Daniel",
-    "email":"gamemy178@gmail.com",
-    "password": "@Santa2023",
-     "fullName": "Daniel Kinyi"
+    "user_name": "Sanny",
+    "email":"emmanuel@gmail.com",
+    "password": "@Emmanuel123",
+     "fullName": "Emmanuel Kipsang"
 }
 
 #####get all users
 
 get http://localhost:4201/user
-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiMTU1MjYyOWEtNjJhYS00N2Q5LWI5ZDktMDI0YTJhNjdiNDQ3IiwicHJvZmlsZUltYWdlIjoiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MTgwMjAzODIxMTMtYTdlOGZjMzhlYWM5P3E9ODAmdz0xNDM0JmF1dG89Zm9ybWF0JmZpdD1jcm9wJml4bGliPXJiLTQuMC4zJml4aWQ9TTN3eE1qQTNmREI4TUh4d2FHOTBieTF3WVdkbGZIeDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCIsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyOTA1ODkwLCJleHAiOjE3MDI5OTIyOTB9.AgRwyaRsa_6H-Y40CTHS1edIxeTGOTiKvh8Bkneb1_s
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJTYW5ueSIsImVtYWlsIjoiZW1tYW51ZWxAZ21haWwuY29tIiwidXNlcl9pZCI6ImI0YzFjMzIwLTM5YTgtNDQ3MS1hYWRkLTQ5NTZjZTMwNDhkNSIsInByb2ZpbGVJbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE4MDIwMzgyMTEzLWE3ZThmYzM4ZWFjOT9xPTgwJnc9MTQzNCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZpeGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHdhRzkwYnkxd1lXZGxmSHg4ZkdWdWZEQjhmSHg4ZkElM0QlM0QiLCJmdWxsTmFtZSI6IkVtbWFudWVsIGtpcHNhbmciLCJpYXQiOjE3MDMwMzM5NTcsImV4cCI6MTcwMzEyMDM1N30.03m6QxZ4yfGVVdUtKJgE8i-8Irpia1CHHd9G4Yn1CUs
+
 
 #####get one user by id
-get http://localhost:4201/user/28e61f6e-e838-41c7-a155-380a84d78871
-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhbGViLmJhcmFrYUB0aGVqaXR1LmNvbSIsImlkIjoiMjhlNjFmNmUtZTgzOC00MWM3LWExNTUtMzgwYTg0ZDc4ODcxIiwiaWF0IjoxNzAwOTk0NTc1LCJleHAiOjE3MDEwODA5NzV9.-LbWQugUV9a0G3Uk5OAZBN3HGbijJU-R9XxsxSImIoY
+get http://localhost:4201/user/b4c1c320-39a8-4471-aadd-4956ce3048d5
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJTYW5ueSIsImVtYWlsIjoiZW1tYW51ZWxAZ21haWwuY29tIiwidXNlcl9pZCI6ImI0YzFjMzIwLTM5YTgtNDQ3MS1hYWRkLTQ5NTZjZTMwNDhkNSIsInByb2ZpbGVJbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE4MDIwMzgyMTEzLWE3ZThmYzM4ZWFjOT9xPTgwJnc9MTQzNCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZpeGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHdhRzkwYnkxd1lXZGxmSHg4ZkdWdWZEQjhmSHg4ZkElM0QlM0QiLCJmdWxsTmFtZSI6IkVtbWFudWVsIGtpcHNhbmciLCJpYXQiOjE3MDMwMzM5NTcsImV4cCI6MTcwMzEyMDM1N30.03m6QxZ4yfGVVdUtKJgE8i-8Irpia1CHHd9G4Yn1CUs
 
 ####login user
 
@@ -24,8 +25,8 @@ post http://localhost:4201/user/login
 Content-Type: application/json
 
 {    
-    "email":"gamemy177@gmail.com",
-    "password": "@Santa2023"
+    "email":"emmanuel@gmail.com",
+    "password": "@Emmanuel123"
 }
 #####update user
 
