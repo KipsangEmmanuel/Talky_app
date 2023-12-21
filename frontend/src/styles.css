@@ -596,7 +596,7 @@ body {
 .modal-content {
   width: 100%;
   background-color: white;
-  border-bottom: 5px solid #ff5e3a;
+  border-bottom: 5px;
 }
 .modal-content ul {
 }
@@ -761,7 +761,7 @@ body {
 /* SETTINGS PAGE */
 .settings {
   width: 100%;
-  border-bottom: 5px solid #ff5e3a;
+  border-bottom: 5px;
 }
 .settings_title {
   padding: 20px;

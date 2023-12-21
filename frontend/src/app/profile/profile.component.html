@@ -1,8 +1,10 @@
+<app-navbar></app-navbar> 
+
 <div class="all">
   <div class="rowfixed"></div>
   <div class="left_row">
     <div class="left_row_profile">
-      <img id="portada" src="../../assets/images/portada.jpg" />
+      <!-- <img id="portada" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.123rf.com%2Fphoto_36318073_profile-word-write-on-paper.html&psig=AOvVaw0DG-Z-nUZdJxRxc19FWEhs&ust=1703129483397000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCZ956dnoMDFQAAAAAdAAAAABAD" /> -->
       <div class="left_row_profile">
         <img id="profile_pic" src="{{ profilePic }}" />
         <span
@@ -32,13 +34,10 @@
     <div class="row border-radius">
       <div class="feed">
         <div class="feed_title">
-          <span
-            ><a routerLink="/profile" id="select_profile_menu"
-              ><b>Profile</b></a
-            >
-            | <a routerLink="/about"><b>About</b></a> |
-            <a routerLink="/photos"><b>Photos</b> </a> |
-            <a routerLink="/followers"><b>followers</b> </a> |
+          <span class="nav-list">
+            <a routerLink="/about"><b>About</b></a>
+            <!-- <a routerLink="/photos"><b>Photos</b> </a> | -->
+            <a routerLink="/followers"><b>followers</b> </a>
             <a routerLink="/followings"><b>followings</b> </a>
           </span>
         </div>
@@ -56,13 +55,13 @@
           <div class="publish_textarea">
             <img
               class="border-radius-image"
-              src="../../assets/images/user.jpg"
+              src="{{profilePic}}"
               alt=""
             />
             <div style="display: flex; flex-direction: column">
               <textarea
                 type="text"
-                placeholder="Whats up, John?"
+                placeholder="Add Something"
                 style="resize: none"
                 formControlName="caption"
               ></textarea>
@@ -94,9 +93,9 @@
               <li (click)="selectedPostType = 'image'">
                 <i class="fa fa-camera"></i>
               </li>
-              <li (click)="selectedPostType = 'video'">
+              <!-- <li (click)="selectedPostType = 'video'">
                 <i class="fa fa-video-camera"></i>
-              </li>
+              </li> -->
             </ul>
             <button type="submit">Publish</button>
           </div>

@@ -1,0 +1,19 @@
+.navbar{
+    background-color: rgb(189, 188, 185);
+    /* background-color: black; */
+}
+
+/* .navbar_search{
+    background-color: white;
+} */
+
+.ipt{
+    background-color: white;
+    color: black;
+    border-radius: 7px;
+}
+
+.pbtn{
+    background-color: orange;
+    /* border-right: 7px; */
+}

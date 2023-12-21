@@ -1,10 +1,11 @@
-<div class="limiter">
+<div class="limiter" >
   <div class="container-login100">
     <div class="wrap-login100">
       <form
         class="login100-form validate-form"
         [formGroup]="registrationForm"
         (ngSubmit)="onSubmit()"
+        data-cy="register-form"
       >
         <span class="login100-form-title">Sign Up </span>
 
@@ -18,6 +19,7 @@
             name="user"
             formControlName="user_name"
             placeholder="Username"
+            data-cy="username"
           />
           <span class="focus-input100"></span>
           <span class="symbol-input100">
@@ -35,6 +37,7 @@
             name="email"
             formControlName="email"
             placeholder="Email"
+            data-cy="email"
           />
           <span class="focus-input100"></span>
           <span class="symbol-input100">
@@ -52,6 +55,7 @@
             formControlName="fullName"
             name="fullName"
             placeholder="FullName"
+            data-cy="fullname"
           />
           <span class="focus-input100"></span>
           <span class="symbol-input100">
@@ -69,6 +73,7 @@
             name="pass"
             formControlName="password"
             placeholder="Password"
+            data-cy="password"
           />
           <span class="focus-input100"></span>
           <span class="symbol-input100">
@@ -86,6 +91,7 @@
             name="pass"
             formControlName="confirmPassword"
             placeholder="Confirm Password"
+            data-cy="confirmpassword"
           />
           <span class="focus-input100"></span>
           <span class="symbol-input100">
@@ -94,7 +100,7 @@
         </div>
 
         <div class="container-login100-form-btn">
-          <button type="submit" class="login100-form-btn">Sign Up</button>
+          <button data-cy="registerBtn" type="submit" class="login100-form-btn">Sign Up</button>
         </div>
 
         <div class="text-center p-t-136">

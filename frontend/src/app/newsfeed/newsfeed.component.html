@@ -1,3 +1,5 @@
+<app-navbar></app-navbar> 
+
 <body>
   <div class="all">
     <div class="rowfixed"></div>
@@ -32,7 +34,7 @@
         <div class="publish">
           <div class="row_title">
             <span
-              ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Talky Tha Better Option..</span
+              ><i class="fa fa-newspaper-o" aria-hidden="true"></i> Talky The Better Option..</span
             >
           </div>
           <form [formGroup]="postForm" (ngSubmit)="sharePost()">
@@ -77,9 +79,9 @@
                 <li (click)="selectedPostType = 'image'">
                   <i class="fa fa-camera"></i>
                 </li>
-                <li (click)="selectedPostType = 'video'">
+                <!-- <li (click)="selectedPostType = 'video'">
                   <i class="fa fa-video-camera"></i>
-                </li>
+                </li> -->
               </ul>
               <button class="pst" type="submit">Post</button>
             </div>

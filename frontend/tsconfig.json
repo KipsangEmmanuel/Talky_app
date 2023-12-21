@@ -29,5 +29,14 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+
+  "include": ["src/*/"],
+  "exclude": [
+    //to exclude cypress from accessing the spec files and using chai as asserion library
+    "cypress.config.ts"
+  ]
+
+
 }
+
