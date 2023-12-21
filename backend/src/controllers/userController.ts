@@ -13,37 +13,6 @@ import {
 } from "../validators/userValidator";
 import { comparePass, hashPass } from "../services/passwordHash";
 
-export const getUsers = async (req: Request, res: Response) => {
-  try {
-    const procedureName = "getUsers";
-    const result = await query(`EXEC ${procedureName}`);
-    return res.json(result.recordset);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getUser = async (req: Request, res: Response) => {
-  try {
-    const user_id = req.params.user_id;
-    // console.log(user_id);
-    if (!user_id) return res.status(400).send({ message: "Id is required" });
-
-    const { error } = validateuserId.validate(req.params);
-
-    if (error)
-      return res
-        .status(400)
-        .send({ success: false, message: error.details[0].message });
-
-    const procedureName = "getUserById";
-    const result = await execute(procedureName, { user_id });
-
-    res.json(result.recordset[0]);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -99,6 +68,39 @@ export const registerUser = async (req: Request, res: Response) => {
     res.json({ error: (error as Error).message });
   }
 };
+
+export const getUsers = async (req: Request, res: Response) => {
+  try {
+    const procedureName = "getUsers";
+    const result = await query(`EXEC ${procedureName}`);
+    return res.json(result.recordset);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.params.user_id;
+    // console.log(user_id);
+    if (!user_id) return res.status(400).send({ message: "Id is required" });
+
+    const { error } = validateuserId.validate(req.params);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
+
+    const procedureName = "getUserById";
+    const result = await execute(procedureName, { user_id });
+
+    res.json(result.recordset[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
