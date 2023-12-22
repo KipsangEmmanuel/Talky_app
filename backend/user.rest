@@ -1,5 +1,5 @@
 ####register user
-post http://localhost:4201/user/register
+post http://localhost:5000/user/register
 Content-Type: application/json
 
 {
@@ -11,17 +11,17 @@ Content-Type: application/json
 
 #####get all users
 
-get http://localhost:4201/user
+get http://localhost:5000/user
 token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJTYW5ueSIsImVtYWlsIjoiZW1tYW51ZWxAZ21haWwuY29tIiwidXNlcl9pZCI6ImI0YzFjMzIwLTM5YTgtNDQ3MS1hYWRkLTQ5NTZjZTMwNDhkNSIsInByb2ZpbGVJbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE4MDIwMzgyMTEzLWE3ZThmYzM4ZWFjOT9xPTgwJnc9MTQzNCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZpeGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHdhRzkwYnkxd1lXZGxmSHg4ZkdWdWZEQjhmSHg4ZkElM0QlM0QiLCJmdWxsTmFtZSI6IkVtbWFudWVsIGtpcHNhbmciLCJpYXQiOjE3MDMwMzM5NTcsImV4cCI6MTcwMzEyMDM1N30.03m6QxZ4yfGVVdUtKJgE8i-8Irpia1CHHd9G4Yn1CUs
 
 
 #####get one user by id
-get http://localhost:4201/user/b4c1c320-39a8-4471-aadd-4956ce3048d5
+get http://localhost:5000/user/b4c1c320-39a8-4471-aadd-4956ce3048d5
 token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJTYW5ueSIsImVtYWlsIjoiZW1tYW51ZWxAZ21haWwuY29tIiwidXNlcl9pZCI6ImI0YzFjMzIwLTM5YTgtNDQ3MS1hYWRkLTQ5NTZjZTMwNDhkNSIsInByb2ZpbGVJbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE4MDIwMzgyMTEzLWE3ZThmYzM4ZWFjOT9xPTgwJnc9MTQzNCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZpeGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHdhRzkwYnkxd1lXZGxmSHg4ZkdWdWZEQjhmSHg4ZkElM0QlM0QiLCJmdWxsTmFtZSI6IkVtbWFudWVsIGtpcHNhbmciLCJpYXQiOjE3MDMwMzM5NTcsImV4cCI6MTcwMzEyMDM1N30.03m6QxZ4yfGVVdUtKJgE8i-8Irpia1CHHd9G4Yn1CUs
 
 ####login user
 
-post http://localhost:4201/user/login
+post http://localhost:5000/user/login
 Content-Type: application/json
 
 {    
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 #####update user
 
-put http://localhost:4201/user
+put http://localhost:5000/user
 token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJEYW5pZWwiLCJlbWFpbCI6ImdhbWVteTE3N0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoiYmQxNTk5M2ItZjFkNS00YTQ0LThkNWQtN2Q5Zjc1ZDVkM2E0IiwiaXNBZG1pbiI6ZmFsc2UsImZ1bGxOYW1lIjoiRGFuaWVsIEthc2VlIiwiaWF0IjoxNzAyNzI0ODU2LCJleHAiOjE3MDI4MTEyNTZ9.SH6mAz0e7_CfzO4ZpUJHKp_7M8PutD3OSNMWfqOY5Kc
 Content-Type: application/json
 
@@ -43,15 +43,15 @@ Content-Type: application/json
 
 
 ##### delete user by ID
-delete http://localhost:4201/user/28e61f6e-e838-41c7-a155-380a84d78871
+delete http://localhost:5000/user/28e61f6e-e838-41c7-a155-380a84d78871
 token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhbGViLmJhcmFrYUB0aGVqaXR1LmNvbSIsImlkIjoiMjhlNjFmNmUtZTgzOC00MWM3LWExNTUtMzgwYTg0ZDc4ODcxIiwiaWF0IjoxNzAwOTk0NTc1LCJleHAiOjE3MDEwODA5NzV9.-LbWQugUV9a0G3Uk5OAZBN3HGbijJU-R9XxsxSImIoY
 
 ### check user details
-get http://localhost:4201/user/check_user_details
+get http://localhost:5000/user/check_user_details
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaWFuYSIsImVtYWlsIjoiZGlhbmFhYmVyaTEyQGdtYWlsLmNvbSIsInVzZXJfaWQiOiJmODNjZjQ3MC0xYjc1LTQ0ZWMtYWRiNy03ZDZjMGRlZWJkOGIiLCJpc0FkbWluIjpmYWxzZSwiZnVsbE5hbWUiOiJEaWFuYSBhYmVyaSIsImlhdCI6MTcwMjQ1OTMxOSwiZXhwIjoxNzAyNTQ1NzE5fQ.zZ2M8ID5DAEyB64EmshP2bsvFX5ND5rjXDtvefEmCyE
 
 #### forgot password
-post http://localhost:4201/user/forgot
+post http://localhost:5000/user/forgot
 Content-Type: application/json
 
 {
@@ -59,7 +59,7 @@ Content-Type: application/json
 }
 
 ##### reset password
-post http://localhost:4201/user/reset
+post http://localhost:5000/user/reset
 Content-Type: application/json
 
 {

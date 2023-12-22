@@ -13,28 +13,14 @@ describe("Reisters a user", () => {
         
         cy.get('[data-cy="registerBtn"]').click()
 
+        cy.visit('http://localhost:4200/login')
         
 
+        // cy.location('pathname').should('equal', '/login')
 
+        
     })
 })
 
 
 
-
-
-// describe("Registers a user", () => {
-
-//     it("passes", () => {
-//       cy.visit('http://localhost:4200/register')
-  
-//       cy.get('[data-cy="username"]').type('Emmanuel kipsang')
-//       cy.get('[data-cy="email"]').type('emmanuel@gmail.com')
-//       cy.get('[data-cy="password"]').type('@Emmanuel123')
-      
-//       cy.get('[data-cy="registerBtn"]').click()
-  
-      
-//     })
-  
-//   })

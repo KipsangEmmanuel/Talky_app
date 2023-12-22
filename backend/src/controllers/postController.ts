@@ -85,7 +85,6 @@ export const editPost = async (req: Request, res: Response) => {
 
     let { post_id, updatedCaption, updatedPostImage, updated_at } = req.body;
 
-    // Check if the post_id is provided
     if (!post_id) {
       return res.status(400).json({
         message: "Post ID is required for editing",
@@ -96,7 +95,6 @@ export const editPost = async (req: Request, res: Response) => {
       updatedPostImage = null;
     }
 
-    // Perform a database update to edit the post
     let result = await execute("editPost", {
       post_id,
       updatedCaption,
@@ -171,7 +169,6 @@ export const getPosts = async (req: Request, res: Response) => {
 export const getPost = async (req: Request, res: Response) => {
   try {
     const post_id = req.params.post_id;
-    // console.log(post_id);
     if (!post_id) return res.status(400).send({ message: "Id is required" });
 
     const procedureName = "getPostById";
@@ -242,14 +239,12 @@ export const getPostLikes = async (req: Request, res: Response) => {
 
     const likes = await execute("getPostLikes", { post_id });
 
-    // Check if there are any likes for the post
     if (likes.recordset.length === 0) {
       return res.status(404).json({
         message: "No likes found for the specified post",
       });
     }
 
-    // Return the likes information
     return res.status(200).json({
       likes: likes.recordset,
     });
@@ -260,12 +255,10 @@ export const getPostLikes = async (req: Request, res: Response) => {
     });
   }
 };
-// Add this to your post controller
 export const getPostDetails = async (req: Request, res: Response) => {
   try {
     const post_id = req.params.post_id;
 
-    // Retrieve post details including likes and comments
     const postDetails = await execute("getPostById", { post_id });
 
     if (!postDetails.recordset || postDetails.recordset.length === 0) {
@@ -290,3 +283,5 @@ export const getPostDetails = async (req: Request, res: Response) => {
     });
   }
 };
+
+

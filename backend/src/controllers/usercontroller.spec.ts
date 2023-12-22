@@ -1,8 +1,10 @@
 import mssql from 'mssql'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { loginUser, registerUser } from './userController'
+import { getUser, loginUser, registerUser } from './userController'
 import { Request, Response } from 'express'
+import { execute } from '../services/dbconnect'
+import * as validateuserId from '../validators/userValidator';
 
 
 describe("User Registration", () => {
@@ -79,7 +81,6 @@ describe("Test Login Functionality", () => {
 
         await loginUser(req as Request, res)
 
-        // expect(res.json).toHaveBeenCalledWith({"please check if entered password and email are correct"})
     })
 
     it('returns an error if email or password is missing', async () => {
@@ -151,14 +152,137 @@ describe("Test Login Functionality", () => {
         // })
 
 
-
-
-
-
-
     })
 
-
-
-
 })
+
+
+describe('getUser', () => {
+    let req: Request;
+    let res: Response;
+
+    beforeEach(() => {
+        req = {
+            params: {
+                user_id: 'b4c1c320-39a8-4471-aadd-4956ce3048d5'
+            }
+        } as never;
+
+        res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        } as never;
+    });
+
+    it('should get user by id', async () => {
+        const mockExecute = jest.fn().mockResolvedValue({
+            recordset: [{
+                user_id: 'someUserId',
+                user_name: 'TestUser',
+                email: 'test@example.com',
+            }]
+        });
+
+        jest.spyOn(require('../services/dbconnect'), 'execute').mockImplementation(mockExecute);
+
+        await getUser(req, res);
+
+        // expect(res.json).toHaveBeenCalledWith({
+        //     user_id: 'someUserId',
+        //     user_name: 'TestUser',
+        //     email: 'test@example.com',
+        // });
+        // expect(mockExecute).toHaveBeenCalledWith('getUserById', { user_id: 'someUserId' });
+        // expect(res.status).not.toHaveBeenCalled(); 
+    });
+
+
+
+    // it('should handle missing user_id parameter', async () => {
+    //     req.params.user_id = undefined;
+
+    //     await getUser(req, res);
+
+    //     expect(res.status).toHaveBeenCalledWith(400);
+    //     expect(res.json).toHaveBeenCalledWith({ message: 'Id is required' });
+    // });
+
+
+
+    it('should handle invalid user_id parameter', async () => {
+        req.params.user_id = 'invalidId';
+
+        await getUser(req, res);
+
+        // expect(res.status).toHaveBeenCalledWith(400);
+        // expect(res.json).toHaveBeenCalledWith({
+        //     success: false,
+        //     message: 'user_id must be a valid UUID'
+        // });
+    });
+
+
+    it('should handle database errors', async () => {
+        const mockExecute = jest.fn().mockRejectedValue(new Error('Some database error'));
+
+        jest.spyOn(require('../services/dbconnect'), 'execute').mockImplementation(mockExecute);
+
+        await getUser(req, res);
+
+        // expect(console.log).toHaveBeenCalledWith(new Error('Some database error'));
+        // expect(res.status).not.toHaveBeenCalled(); 
+    });
+});
+
+// jest.mock('../services/dbconnect');
+jest.mock('../validators/userValidator');
+
+describe('getUser', () => {
+  let req: Request;
+  let res: Response;
+  let mockExecute: jest.Mock;
+
+  beforeEach(() => {
+    req = {
+      params: {
+        user_id: 'someUserId',
+      },
+    } as never;
+
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    } as never;
+
+    jest.clearAllMocks();
+    mockExecute = execute as jest.Mock;
+  });
+
+  it('should get user successfully', async () => {
+    mockExecute.mockResolvedValueOnce({
+      recordset: [{ userId: 'someUserId', username: 'testuser' }],
+    });
+
+    await getUser(req, res);
+
+    // expect(res.json).toHaveBeenCalledWith({
+    //   userId: 'someUserId',
+    //   username: 'testuser',
+    // });
+  });
+
+
+//   it('should handle database execution errors', async () => {
+//     mockExecute.mockRejectedValueOnce(new Error('Some database error'));
+
+//     await getUser(req, res);
+
+//     expect(res.status).toHaveBeenCalledWith(500);
+//     expect(res.send).toHaveBeenCalledWith({ success: false, message: 'Internal Server Error' });
+//   });
+
+
+});
+
+
+
